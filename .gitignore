@@ -1,0 +1,8 @@
+# Editor directories and files
+.settings
+.vscode
+.vs
+.classpath
+.idea
+target
+test-output

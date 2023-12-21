@@ -1,0 +1,42 @@
+{
+    "QA01":
+    {
+        "url": "http://cli.bienlinea.qa01.bi.com/InicioSesion/Inicio/Autenticar"
+    },
+    "QA02":
+    {
+        "url": "https://pruebas.bi.com.gt/InicioSesion/Inicio/Autenticar#!"
+    },
+    "QA03":
+    {
+        "url": "http://clibienlineaqa03.bi.com.gt/InicioSesion/Inicio/Autenticar#!"
+    },
+    "QA04":
+    {
+        "url": "http://clibienlineaqa04.bi.com.gt/InicioSesion/Inicio/Autenticar#!"
+    },
+    "QA05":
+    {
+        "url": "http://clibienlineaqa05.bi.com.gt/InicioSesion/Inicio/Autenticar#!"
+    },
+    "QA06":
+    {
+        "url": "http://clibienlineaqa06.bi.com.gt/InicioSesion/Inicio/Autenticar#!"
+    },
+    "QA07":
+    {
+        "url": "http://clibienlineaqa07.bi.com.gt/InicioSesion/Inicio/Autenticar#!"
+    },
+    "QA08":
+    {
+        "url": "http://clibienlineaqa08.bi.com.gt/InicioSesion/Inicio/Autenticar#!"
+    },
+    "Produccion":
+    {
+        "url": "https://www.bienlinea.bi.com.gt"
+    },
+    "Bimovil":
+    {
+        "url": "https://bimoviladmqa.bi.com.gt/banksms/default.asp"
+    }
+}

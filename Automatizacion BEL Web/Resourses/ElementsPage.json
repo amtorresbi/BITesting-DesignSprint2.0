@@ -1,0 +1,501 @@
+{
+	"RUTA:":
+	{
+		"LOGIN": ""
+	},
+	"formCodigo":
+	{
+		"id": "campoInstalacion",
+		"clase": "input100",
+		"xpath": "/html/body/div[2]/div/div[2]/div[2]/div/form/div[1]/label/input"
+	},
+	"formUsuario":
+	{
+		"id": "campoUsuario",
+		"clase": "input100",
+		"xpath": "/html/body/div[2]/div/div[2]/div[2]/div/form/div[2]/label/input"
+	},
+	"formContrasenia":
+	{
+		"id": "campoContrasenia",
+		"clase": "input100",
+		"xpath": "/html/body/div[2]/div/div[2]/div[2]/div/form/div[3]/label/input"
+	},
+
+	"btnInisioSesion":
+	{
+		"id": "autenticar",
+		"clase": "hollow homeb button expanded login100-form-btn",
+		"xpath": "/html/body/div[2]/div/div[2]/div[2]/div/form/div[4]/button"
+	},
+	"lblMensajeError":
+	{
+		"clase": "div.errorbox",
+		"xpath": "/html/body/div[2]/div/div[2]/div[2]/div/form/div[5]/div/p"
+	},
+	"btnOlvideContrasenia":
+	{
+		"id": "btnOpenModalPassword",
+		"xpath": "/html/body/div[2]/div/div[2]/div[2]/div/div/div/a"
+	},
+	"mensajeError":
+	{
+		"clase": "div.errorbox",
+		"xpath": "/html/body/div[2]/div/div[2]/div[2]/div/form/div[5]/div"
+	},
+	"lblErrorCodigo":
+	{
+		"clase": "form-error is-visible",
+		"xpath": "/html/body/div[2]/div/div[2]/div[2]/div/form/div[1]/label/span[2]"
+	},
+	"lblErrorUsuario":
+	{
+		"clase": "form-error is-visible",
+		"xpath": "/html/body/div[2]/div/div[2]/div[2]/div/form/div[2]/label/span[2]"
+	},
+	"lblErrorContrasenia":
+	{
+		"clase": "form-error is-visible",
+		"xpath": "/html/body/div[2]/div/div[2]/div[2]/div/form/div[3]/label/span[2]"
+	},
+
+
+	"RUTA:":
+	{
+		"MENU PRINCIPAL": ""
+	},
+	"home":
+	{
+		"clase": "logo",
+		"xpath": "/html/body/div[1]/div[2]/div/div/div/nav/ul/li[1]/a/img"
+	},
+	"menuInformacionDeCuentas":
+	{
+		"clase": "tab-title tabcont1 mnu-mainmenu-op",
+		"texto": "Información de cuentas",
+		"xpath": "/html/body/div[2]/div/div/div[1]/div/ul/li[1]"
+	},
+	"menuTransferencias":
+	{
+		"clase": "tab-title tabcont1 mnu-mainmenu-op",
+		"texto": "Transferencias",
+		"xpath": "/html/body/div[2]/div/div/div[1]/div/ul/li[2]/a"
+	},
+	"menuPagosYAportes":
+	{
+		"clase": "tab-title tabcont1 mnu-mainmenu-op",
+		"texto": "Pagos y aportes",
+		"xpath": "/html/body/div[2]/div/div/div[1]/div/ul/li[3]"
+	},
+	"menuAgenciaEnLinea":
+	{
+		"clase": "tab-title tabcont1 mnu-mainmenu-op",
+		"texto": "Agencia en línea",
+		"xpath": "/html/body/div[2]/div/div/div[1]/div/ul/li[4]"
+	},
+	"menuHistorial":
+	{
+		"clase": "tab-title tabcont1 mnu-mainmenu-op",
+		"texto": "Historial",
+		"xpath": "/html/body/div[2]/div/div/div[1]/div/ul/li[5]"
+	},
+	"menuOtrosSitios":
+	{
+		"clase": "tab-title tabcont1 mnu-mainmenu-op",
+		"texto": "Otros sitios",
+		"xpath": "/html/body/div[2]/div/div/div[1]/div/ul/li[6]"
+	},
+
+
+	"RUTA:":
+	{
+		"MENU TRANSFERENCIAS -> TRANSFERENCIAS PROPIAS": ""
+	},
+	"transferenciaMonetariasYAhorros":
+	{
+		"clase": "mnu-trncta",
+		"texto": "Monetarias y Ahorros",
+		"xpath": "/html/body/div[2]/div/div/div[2]/div[2]/div/div[1]/ul/li/ul/li[1]/a"
+	},
+	"transferenciaTarjetaDeCréditoQ":
+	{
+		"clase": "mnu-opeptcq",
+		"texto": "Tarjeta de Crédito Q",
+		"xpath": "/html/body/div[2]/div/div/div[2]/div[2]/div/div[1]/ul/li/ul/li[2]/a"
+	},
+	"transferenciaTarjetaDeCrédito$":
+	{
+		"clase": "mnu-opeptcd",
+		"texto": "Tarjeta de Crédito $",
+		"xpath": "/html/body/div[2]/div/div/div[2]/div[2]/div/div[1]/ul/li/ul/li[3]/a"
+	},
+	"transferenciaBiCreditOnline":
+	{
+		"clase": "mnu-oprtrnEcrd",
+		"texto": "Bi-Credit Online",
+		"xpath": "/html/body/div[2]/div/div/div[2]/div[2]/div/div[1]/ul/li/ul/li[4]/a"
+	},
+	"transferenciaTarjetaPrepago":
+	{
+		"clase": "mnu-oprrpp",
+		"texto": "Tarjeta Prepago",
+		"xpath": "/html/body/div[2]/div/div/div[2]/div[2]/div/div[1]/ul/li/ul/li[5]/a"
+	},
+	"transferenciaHistorial":
+	{
+		"clase": "mnu-trnhist",
+		"texto": "Historial",
+		"xpath": "/html/body/div[2]/div/div/div[2]/div[2]/div/div[1]/ul/li/ul/li[6]/a"
+	},
+
+
+	"RUTA:":
+	{
+		"MENU TRANSFERENCIAS -> TRANSFERENCIAS PROPIAS -> MONETARIAS Y AHORROS": ""
+	},
+	"dropCuenta1":
+	{
+		"id": "drop",
+		"clase": "icon icon-puntos has-tip tip-bottom",
+		"xpath": "/html/body/div[4]/div[3]/div/div[3]/div/div[1]/div/div/p[1]/a/span"
+	},
+	"optionDropPropias":
+	{
+		"id": "Cuenta",
+		"xpath": "/html/body/div[4]/div[3]/div/div[3]/div/div[1]/div/div/ul/li[2]/a"
+	},
+	"selectCuentaDebitar":
+	{
+		"id": "Cuentdeb",
+		"clase": "medium",
+		"xpath": "/html/body/div[4]/form/div/div[2]/div[1]/label/select"
+	},
+	"selectCuentaAcreditar":
+	{
+		"id": "Cuentcred",
+		"clase": "medium",
+		"xpath": "/html/body/div[4]/form/div/div[2]/div[2]/label/select"
+	},
+	"cuentaAcreditar":
+	{
+		"xpath": "/html/body/div[4]/form/div/div[2]/div[2]/label/select/option[3]"
+	},
+	"formMontoDebito":
+	{
+		"id": "MontoDebito",
+		"xpath": "/html/body/div[4]/form/div/div[3]/div/div/div/label/input"
+	},
+	"formComentario":
+	{
+		"id": "textarea",
+		"xpath": "/html/body/div[4]/form/div/div[6]/div/div[1]/label/textarea"
+	},
+	"btnContinuar":
+	{
+		"id": "btnContinuar",
+		"xpath": "/html/body/div[4]/form/div/div[6]/div/div[2]/div/button"
+	},
+	"btnConfirmar":
+	{
+		"id": "butoncontinuar",
+		"clase": "button",
+		"xpath": "/html/body/div[4]/div/div/div[8]/div/div[1]/a"
+	},
+	"lblTransferenciaExitosa":
+	{
+		"clase": "alert-box success icon radius",
+		"xpath": "/html/body/div[4]/div/div/div[1]/div[1]"
+	},
+	"lblTransferenciaErronea":
+	{
+		"clase": "alert-box alert icon radius",
+		"texto": "SALDO INSUFICIENTE",
+		"xpath": "/html/body/div[4]/div/div/div[2]/div[1]"
+	},
+	"lblAutorizacion":
+	{
+		"clase": "large-12 medium-12 columns",
+		"xpath": "/html/body/div[4]/div/div/div[2]/div[2]/h5"
+	},
+	"lblCuentaDebitada":
+	{
+		"clase": "large-5 medium-5 columns",
+		"xpath": "/html/body/div[4]/div/div/div[4]/div[2]/h5"
+	},
+	"lblCuentaAcreditada":
+	{
+		"clase": "large-5 medium-5 columns",
+		"xpath": "/html/body/div[4]/div/div/div[5]/div[2]/h5"
+	},
+	"lblTasaDeCambioVenta":
+	{
+		"id": "txtTasaVenta"
+	},
+	"formMontoDebitoQV":
+	{
+		"id": "txtMontoDebitoQ",
+		"xpath": "/html/body/div[4]/form/div/div[4]/div/div[2]/div/label/input[2]"
+	},
+	"formMontoDebito$V":
+	{
+		"id": "txtMontoDebitoUSD1",
+		"xpath": "/html/body/div[4]/form/div/div[4]/div/div[3]/div/label/input[2]"
+	},
+	"lblTasaDeCambioCompra":
+	{
+		"id": "txtTasaCompra"
+	},
+	"formMontoDebito$C":
+	{
+		"id": "txtMontoDebitoUSD",
+		"xpath": "/html/body/div[4]/form/div/div[4]/div/div[2]/div/label/input[1]"
+	},
+	"lblMontoAcreditadoQ":
+	{
+		"clase": "large-12 columns ",
+		"xpath": "/html/body/div[4]/div/div/div[7]/div[2]/h5"
+	},
+	"lblMontoAcreditado$":
+	{
+		"clase": "large-12 columns ",
+		"xpath": "/html/body/div[4]/div/div/div[7]/div[2]/h5"
+	},
+	"lblTxtTasaVenta":
+	{
+		"id": "txtTasaVenta"
+	},
+	"lblTxtTasaCompra":
+	{
+		"id": "txtTasaCompra"
+	},
+
+	"RUTA:":
+	{
+		"MENU TRANSFERENCIAS -> TRANSFERENCIAS A TERCEROS": ""
+	},
+	"transTRealizarTransferencia":
+	{
+		"clase": "mnu-ctasTercPg",
+		"texto": "Realizar transferencia",
+		"xpath": "/html/body/div[2]/div/div/div[2]/div[2]/div/div[2]/ul/li/ul/li[2]/a"
+	},
+	"transTMantenimientoDeCuentas":
+	{
+		"clase": "mnu-ctasTercAd",
+		"texto": "Mantenimiento de cuentas",
+		"xpath": "/html/body/div[2]/div/div/div[2]/div[2]/div/div[2]/ul/li/ul/li[3]/a"
+	},
+	"transTHistorial":
+	{
+		"clase": "mnu-ctasTercHi",
+		"texto": "Historial",
+		"xpath": "/html/body/div[2]/div/div/div[2]/div[2]/div/div[2]/ul/li/ul/li[4]/a"
+	},
+
+
+	"RUTA:":
+	{
+		"MENU TRANSFERENCIAS -> TRANSFERENCIAS A TERCEROS -> REALIZAR TRANSFERENCIA": ""
+	},
+	"transTSearch":
+	{
+		"id": "find",
+		"xpath": "/html/body/div[4]/div[1]/div[5]/div/div[1]/input"
+	},
+	"grid":
+	{
+		"clase": "tbl-report",
+		"xpath": "/html/body/div[4]/div[1]/div[6]/div/table/thead"
+	},
+	"transTDropCuentas":
+	{
+		"clase": "icon icon-puntos has-tip tip-bottom",
+		"xpath": "/html/body/div[4]/div[1]/div[6]/div/table/tbody/tr[1]/td[5]/p[1]/a/span"
+	},
+	"transTDropTransferir":
+	{
+		"id": "CtaTercero",
+		"texto": "TRANSFERIR",
+		"xpath": "/html/body/div[4]/div[1]/div[6]/div/table/tbody/tr[1]/td[5]/ul/li[2]/a"
+	},
+	"transTCuentaADebitar":
+	{
+		"id": "Cuentcred",
+		"clase": "medium",
+		"xpath": "/html/body/div[4]/form/div/div[2]/div[10]/label/select"
+	},
+	"transTMonto":
+	{
+		"id": "MontoDebito",
+		"xpath": "/html/body/div[4]/form/div/div[3]/div/div/div/label/input"
+	},
+	"transTComentario":
+	{
+		"id": "comentarioSC",
+		"xpath": "/html/body/div[4]/form/div/div[6]/div/div[1]/label/textarea"
+	},
+	"transTBtnContinuar":
+	{
+		"id": "btnContinuar",
+		"texto": "Continuar",
+		"xpath": "/html/body/div[4]/form/div/div[6]/div/div[2]/div[1]/button"
+	},
+	"transTBtnConfirmar":
+	{
+		"id": "butoncontinuar",
+		"clase": "button",
+		"texto": "Continuar",
+		"xpath": "/html/body/div[4]/div/div/div[6]/div[1]/a"
+	},
+	"transTLblTransferenciaExitosa":
+	{
+		"clase": "alert-box success icon radius",
+		"texto": "Transferencia fue realizada exitosamente",
+		"xpath": "/html/body/div[4]/div/div/div[1]/div[1]"
+	},
+	"transTLblAutorizacion":
+	{
+		"clase": "large-12 medium-12 columns",
+		"xpath": "/html/body/div[4]/div/div/div[2]/div[2]"
+	},
+	"transTLblCuentaDebitada":
+	{
+		"clase": "large-5 medium-5 columns",
+		"xpath": "/html/body/div[4]/div/div/div[4]/div[2]"
+	},
+	"transTLblCuentaAcreditada":
+	{
+		"clase": "large-5 medium-5 columns",
+		"xpath": "/html/body/div[4]/div/div/div[5]/div[2]"
+	},
+	"transTLblMontoDebitado":
+	{
+		"clase": "large-12 columns ",
+		"xpath": "/html/body/div[4]/div/div/div[6]/div[2]"
+	},
+	"transTLblMontoAcreditado":
+	{
+		"clase": "large-12 columns ",
+		"xpath": "/html/body/div[4]/div/div/div[7]/div[2]"
+	},
+
+	"transTAgragarCuenta":
+	{
+		"clase": "large-3 large-offset-3 medium-4  medium-offset-2 small-12  columns end",
+		"xpath": "/html/body/div[4]/div[1]/div[3]"
+	},
+	"transTTipoCuenta":
+	{
+		"id": "Cuentdeb",
+		"xpath": "/html/body/div[4]/div/div/div[2]/div/form/div[1]/div/label/select"
+	},
+	"transTCuentaNueva":
+	{
+		"id": "passwordA",
+		"xpath": "/html/body/div[4]/div/div/div[2]/div/form/div[2]/div[1]/div/label/input"
+	},
+	"transTCuentaNuevaConfirm":
+	{
+		"id": "confirmPasswordA",
+		"xpath": "/html/body/div[4]/div/div/div[2]/div/form/div[2]/div[2]/div/label/input"
+	},
+	"transTBtnConsultarCuenta":
+	{
+		"xpath": "/html/body/div[4]/div/div/div[2]/div/form/div[3]/div/a/button"
+	},
+	"transTAlias":
+	{
+		"id": "alias",
+		"xpath": "/html/body/div[4]/div[1]/div/div[2]/div/div[6]/div[2]/input"
+	},
+	"transTTokenAgregarCta":
+	{
+		"clase": "numberValidationToken",
+		"xpath": "/html/body/div[9]/form/div/div/div/div[4]/div/div/label/input"
+	},
+	"transTBtnTokenAgregarCtaContinuar":
+	{
+		"id": "btnAdd",
+		"xpath": "/html/body/div[9]/form/div/div/div/div[5]/div/div/div[1]/button"
+	},
+	"transTLblTokenIncorrecto":
+	{
+		"id": "ErrorTokenIncorrecto",
+		"xpath": "/html/body/div[9]/form/div/div/div/div[3]/div/div"
+	},
+
+
+
+	"btnCerrarSesion":
+	{
+		"clase": "ic-cerrar-sesion ico2 has-tip tip-bottom",
+		"xpath": "/html/body/div[1]/div[1]/div[1]/div/div[2]/nav/ul/li[6]/a"
+	},
+
+	"RUTA:":
+	{
+		"Bmovil": ""
+	},
+	"BmovilUsuario":
+	{
+		"id": "clave",
+		"xpath": "/html/body/form/table/tbody/tr[1]/td[2]/input"
+	},
+	"BmovilContrasenia":
+	{
+		"id": "password",
+		"xpath": "/html/body/form/table/tbody/tr[2]/td[2]/input"
+	},
+	"BmovilBtnIngresar":
+	{
+		"clase": "Botones1",
+		"xpath": "/html/body/form/table/tbody/tr[3]/td/input"
+	},
+	"BmovilMenuConsultas":
+	{
+		"id": "e0_20o",
+		"clase": "TM0o0",
+		"xpath": "/html/body/table[1]/tbody/tr/td/table/tbody/tr[4]/td/div/a[21]"
+	},
+	"BmovilSalientes":
+	{
+		"id": "e0_37i",
+		"clase": "TM1i0",
+		"xpath": "/html/body/table[1]/tbody/tr/td/table/tbody/tr[4]/td/div/a[38]/div"
+	},
+	"BmovilMensaje":
+	{
+		"id": "mensajetxt",
+		"xpath": "/html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td[2]/table/tbody/tr[1]/td[2]/input"
+	},
+	"BmovilPais":
+	{
+		"id": "pais",
+		"xpath": "/html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td[2]/table/tbody/tr[2]/td[6]/select"
+	},
+	"BmovilRangoFechas":
+	{
+		"id": "rango",
+		"xpath": "/html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td[2]/table/tbody/tr[2]/td[1]/input"
+	},
+	"BmovilSinMascara":
+	{
+		"id": "debug",
+		"xpath": "/html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td[2]/table/tbody/tr[4]/td/input[2]"
+	},
+	"BmovilBtnConsultar":
+	{
+		"id": "Submit",
+		"clase": "",
+		"texto": "",
+		"xpath": "/html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td[2]/table/tbody/tr[4]/td/input[1]"
+	},
+	"BmovilRespuesta":
+	{
+		"id": "",
+		"clase": "",
+		"texto": "",
+		"xpath": "/html/body/table[2]/tbody/tr/td/table[2]/tbody/tr[2]/td[2]/table/tbody/tr[3]/td[6]"
+	}
+
+}

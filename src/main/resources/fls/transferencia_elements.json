@@ -1,0 +1,32 @@
+{
+	"transferenciaMonetariasYAhorros": {
+		"clase": "mnu-trncta",
+		"texto": "Monetarias y Ahorros",
+		"xpath": "/html/body/div[2]/div/div/div[2]/div[2]/div/div[1]/ul/li/ul/li[1]/a"
+	},
+	"transferenciaTarjetaDeCréditoQ": {
+		"clase": "mnu-opeptcq",
+		"texto": "Tarjeta de Crédito Q",
+		"xpath": "/html/body/div[2]/div/div/div[2]/div[2]/div/div[1]/ul/li/ul/li[2]/a"
+	},
+	"transferenciaTarjetaDeCrédito$": {
+		"clase": "mnu-opeptcd",
+		"texto": "Tarjeta de Crédito $",
+		"xpath": "/html/body/div[2]/div/div/div[2]/div[2]/div/div[1]/ul/li/ul/li[3]/a"
+	},
+	"transferenciaBiCreditOnline": {
+		"clase": "mnu-oprtrnEcrd",
+		"texto": "Bi-Credit Online",
+		"xpath": "/html/body/div[2]/div/div/div[2]/div[2]/div/div[1]/ul/li/ul/li[4]/a"
+	},
+	"transferenciaTarjetaPrepago": {
+		"clase": "mnu-oprrpp",
+		"texto": "Tarjeta Prepago",
+		"xpath": "/html/body/div[2]/div/div/div[2]/div[2]/div/div[1]/ul/li/ul/li[5]/a"
+	},
+	"transferenciaHistorial": {
+		"clase": "mnu-trnhist",
+		"texto": "Historial",
+		"xpath": "/html/body/div[2]/div/div/div[2]/div[2]/div/div[1]/ul/li/ul/li[6]/a"
+	}
+}

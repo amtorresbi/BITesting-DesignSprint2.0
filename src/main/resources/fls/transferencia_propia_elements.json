@@ -1,0 +1,94 @@
+{
+	"dropCuenta1": {
+		"id": "drop",
+		"clase": "icon icon-puntos has-tip tip-bottom",
+		"xpath": "/html/body/div[4]/div[3]/div/div[3]/div/div[1]/div/div/p[1]/a/span"
+	},
+	"optionDropPropias": {
+		"id": "Cuenta",
+		"xpath": "/html/body/div[4]/div[3]/div/div[3]/div/div[1]/div/div/ul/li[2]/a"
+	},
+	"selectCuentaDebitar": {
+		"id": "Cuentdeb",
+		"clase": "medium",
+		"xpath": "/html/body/div[4]/form/div/div[2]/div[1]/label/select"
+	},
+	"selectCuentaAcreditar": {
+		"id": "Cuentcred",
+		"clase": "medium",
+		"xpath": "/html/body/div[4]/form/div/div[2]/div[2]/label/select"
+	},
+	"cuentaAcreditar": {
+		"xpath": "/html/body/div[4]/form/div/div[2]/div[2]/label/select/option[3]"
+	},
+	"formMontoDebito": {
+		"id": "MontoDebito",
+		"xpath": "/html/body/div[4]/form/div/div[3]/div/div/div/label/input"
+	},
+	"formComentario": {
+		"id": "textarea",
+		"xpath": "/html/body/div[4]/form/div/div[6]/div/div[1]/label/textarea"
+	},
+	"btnContinuar": {
+		"id": "btnContinuar",
+		"xpath": "/html/body/div[4]/form/div/div[6]/div/div[2]/div/button"
+	},
+	"btnConfirmar": {
+		"id": "butoncontinuar",
+		"clase": "button",
+		"xpath": "/html/body/div[4]/div/div/div[8]/div/div[1]/a"
+	},
+	"lblTransferenciaExitosa": {
+		"clase": "alert-box success icon radius",
+		"xpath": "/html/body/div[4]/div/div/div[1]/div[1]"
+	},
+	"lblTransferenciaErronea": {
+		"clase": "alert-box alert icon radius",
+		"texto": "SALDO INSUFICIENTE",
+		"xpath": "/html/body/div[4]/div/div/div[2]/div[1]"
+	},
+	"lblAutorizacion": {
+		"clase": "large-12 medium-12 columns",
+		"xpath": "/html/body/div[4]/div/div/div[2]/div[2]/h5"
+	},
+	"lblCuentaDebitada": {
+		"clase": "large-5 medium-5 columns",
+		"xpath": "/html/body/div[4]/div/div/div[4]/div[2]/h5"
+	},
+	"lblCuentaAcreditada": {
+		"clase": "large-5 medium-5 columns",
+		"xpath": "/html/body/div[4]/div/div/div[5]/div[2]/h5"
+	},
+	"lblTasaDeCambioVenta": {
+		"id": "txtTasaVenta"
+	},
+	"formMontoDebitoQV": {
+		"id": "txtMontoDebitoQ",
+		"xpath": "/html/body/div[4]/form/div/div[4]/div/div[2]/div/label/input[2]"
+	},
+	"formMontoDebito$V": {
+		"id": "txtMontoDebitoUSD1",
+		"xpath": "/html/body/div[4]/form/div/div[4]/div/div[3]/div/label/input[2]"
+	},
+	"lblTasaDeCambioCompra": {
+		"id": "txtTasaCompra"
+	},
+	"formMontoDebito$C": {
+		"id": "txtMontoDebitoUSD",
+		"xpath": "/html/body/div[4]/form/div/div[4]/div/div[2]/div/label/input[1]"
+	},
+	"lblMontoAcreditadoQ": {
+		"clase": "large-12 columns ",
+		"xpath": "/html/body/div[4]/div/div/div[7]/div[2]/h5"
+	},
+	"lblMontoAcreditado$": {
+		"clase": "large-12 columns ",
+		"xpath": "/html/body/div[4]/div/div/div[7]/div[2]/h5"
+	},
+	"lblTxtTasaVenta": {
+		"id": "txtTasaVenta"
+	},
+	"lblTxtTasaCompra": {
+		"id": "txtTasaCompra"
+	}
+}

@@ -1,0 +1,41 @@
+{
+	"home": {
+		"clase": "logo",
+		"xpath": "/html/body/div[1]/div[2]/div/div/div/nav/ul/li[1]/a/img"
+	},
+	"menuInformacionDeCuentas": {
+		"clase": "tab-title tabcont1 mnu-mainmenu-op",
+		"texto": "Información de cuentas",
+		"xpath": "/html/body/div[2]/div/div/div[1]/div/ul/li[1]/a",
+		"id": "id"
+	},
+	"menuTransferencias": {
+		"clase": "tab-title tabcont1 mnu-mainmenu-op",
+		"texto": "Transferencias",
+		"xpath": "/html/body/div[2]/div/div/div[1]/div/ul/li[2]/a"
+	},
+	"menuPagosYAportes": {
+		"clase": "tab-title tabcont1 mnu-mainmenu-op",
+		"texto": "Pagos y aportes",
+		"xpath": "/html/body/div[2]/div/div/div[1]/div/ul/li[3]"
+	},
+	"menuAgenciaEnLinea": {
+		"clase": "tab-title tabcont1 mnu-mainmenu-op",
+		"texto": "Agencia en línea",
+		"xpath": "/html/body/div[2]/div/div/div[1]/div/ul/li[4]"
+	},
+	"menuHistorial": {
+		"clase": "tab-title tabcont1 mnu-mainmenu-op",
+		"texto": "Historial",
+		"xpath": "/html/body/div[2]/div/div/div[1]/div/ul/li[5]"
+	},
+	"menuOtrosSitios": {
+		"clase": "tab-title tabcont1 mnu-mainmenu-op",
+		"texto": "Otros sitios",
+		"xpath": "/html/body/div[2]/div/div/div[1]/div/ul/li[6]"
+	},
+	"btnCerrarSesion": {
+		"clase": "ic-cerrar-sesion ico2 has-tip tip-bottom",
+		"xpath": "/html/body/div[1]/div[1]/div[1]/div/div[2]/nav/ul/li[6]/a"
+	}
+}

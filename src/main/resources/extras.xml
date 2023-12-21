@@ -1,0 +1,33 @@
+<assembly xmlns="http://maven.apache.org/ASSEMBLY/2.2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.2.0 http://maven.apache.org/xsd/assembly-2.2.0.xsd">
+    <id>json-files</id>
+    <formats>
+        <format>zip</format>
+    </formats>
+    <includeBaseDirectory>false</includeBaseDirectory>
+    <fileSets>
+        <fileSet>
+            <directory>${project.basedir}/src/main/resources/fls</directory>
+            <outputDirectory>/fls</outputDirectory>
+            <includes>
+                <include>*.json</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>${project.basedir}/src/main/resources/img</directory>
+            <outputDirectory>/img</outputDirectory>
+            <includes>
+                <include>*.png</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>${project.basedir}/src/main/resources/plantillas</directory>
+            <outputDirectory>/plantillas</outputDirectory>
+            <includes>
+                <include>*.json</include>
+                <include>*.xlsx</include>
+            </includes>
+        </fileSet>
+    </fileSets>
+</assembly>

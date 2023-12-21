@@ -1,0 +1,57 @@
+{
+    "formCodigo":
+    {
+        "id": "campoInstalacion",
+        "clase": "input100",
+        "xpath": "/html/body/div[2]/div/div[2]/div[2]/div/form/div[1]/label/input"
+    },
+    "formUsuario":
+    {
+        "id": "campoUsuario",
+        "clase": "input100",
+        "xpath": "/html/body/div[2]/div/div[2]/div[2]/div/form/div[2]/label/input"
+    },
+    "formContrasenia":
+    {
+        "id": "campoContrasenia",
+        "clase": "input100",
+        "xpath": "/html/body/div[2]/div/div[2]/div[2]/div/form/div[3]/label/input"
+    },
+
+    "btnInisioSesion":
+    {
+        "id": "autenticar",
+        "clase": "hollow homeb button expanded login100-form-btn",
+        "xpath": "/html/body/div[2]/div/div[2]/div[2]/div/form/div[4]/button"
+    },
+    "lblMensajeError":
+    {
+        "clase": "div.errorbox",
+        "xpath": "/html/body/div[2]/div/div[2]/div[2]/div/form/div[5]/div/p"
+    },
+    "btnOlvideContrasenia":
+    {
+        "id": "btnOpenModalPassword",
+        "xpath": "/html/body/div[2]/div/div[2]/div[2]/div/div/div/a"
+    },
+    "mensajeError":
+    {
+        "clase": "div.errorbox",
+        "xpath": "/html/body/div[2]/div/div[2]/div[2]/div/form/div[5]/div"
+    },
+    "lblErrorCodigo":
+    {
+        "clase": "form-error is-visible",
+        "xpath": "/html/body/div[2]/div/div[2]/div[2]/div/form/div[1]/label/span[2]"
+    },
+    "lblErrorUsuario":
+    {
+        "clase": "form-error is-visible",
+        "xpath": "/html/body/div[2]/div/div[2]/div[2]/div/form/div[2]/label/span[2]"
+    },
+    "lblErrorContrasenia":
+    {
+        "clase": "form-error is-visible",
+        "xpath": "/html/body/div[2]/div/div[2]/div[2]/div/form/div[3]/label/span[2]"
+    }
+}
