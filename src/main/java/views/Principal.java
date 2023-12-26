@@ -1,11 +1,14 @@
 package views;
 
 import com.formdev.flatlaf.FlatDarculaLaf;
+// IMPORT CONFIGURATIONS DATA
 import config.Mensajes;
 import config.MensajesObserver;
 import config.Preferencias;
+// IMPORT TEST SUITES
 import controllers.Login;
 import controllers.transferencia.Transferencia_propia;
+// IMPORT HELPERS
 import helpers.Bi_helper;
 
 import javax.swing.BorderFactory;
@@ -16,6 +19,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -47,10 +51,11 @@ public class Principal extends JFrame implements MensajesObserver {
     private String AMBIENTE_JSON = preferencias.obtenerAtributo("rutaJsonAmbiente");
     private static Map<Integer, String> ambientes = new HashMap<>();
 
-    private static JPanel panelNivel = new JPanel();
-    private static JPanel panelNavegador = new JPanel();
+    private static JPanel panelTipoPrueba = new JPanel(); // Panel que contiene Web o App
+    private static JPanel panelMedioPrueba = new JPanel();
     private static JPanel panelAmbiente = new JPanel();
     private static JPanel panelPruebas = new JPanel();
+    private static JPanel panelFlujos = new JPanel();
     private static JPanel panelReinicio = new JPanel(new BorderLayout());
     private static JPanel panelMensaje = new JPanel(new BorderLayout());
     private static JLabel labelMensaje = new JLabel();
@@ -58,7 +63,7 @@ public class Principal extends JFrame implements MensajesObserver {
     private final Color colorFondo = new Color(158, 218, 255);
 
     public Principal() {
-        generarPlantillas();
+        generarPlantillas(); // Genera las plantillas de los archivos de configuración
         try {
             UIManager.setLookAndFeel(new FlatDarculaLaf());
         } catch (UnsupportedLookAndFeelException e) {
@@ -66,25 +71,28 @@ public class Principal extends JFrame implements MensajesObserver {
             System.out.println(e.getMessage());
         }
 
-        setTitle("Automatizaciones Transversales");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setTitle("Automatizaciones Bi"); // Título de la ventana
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Configuración cierre de la ventana
         setLayout(new GridBagLayout());
-        setSize(900, 700);
-        setIconImage(Objects.requireNonNull(Bi_helper.rutaImg("icono.png")).getImage());
+        setSize(1200, 700); // Tamaño de la ventana
+        setIconImage(Objects.requireNonNull(Bi_helper.rutaImg("icono.png")).getImage()); // Icono de la ventana
         getAmbientes();
 
+        // Configuración de las partes de la ventana
         GridBagConstraints c = new GridBagConstraints();
 
         c.insets = new Insets(5, 2, 2, 2);
         c.gridx = 0;
         c.gridy = 0;
-        add(columnaNivel(), c);
+        add(columnaTipoPrueba(), c);
         c.gridx = 1;
-        add(columnaNavegador(), c);
+        add(columnaMedioPrueba(), c);
         c.gridx = 2;
         add(columnaAmbiente(panelAmbiente, panelPruebas), c);
         c.gridx = 3;
-        add(columnaTest(panelPruebas, panelReinicio), c);
+        add(columnaTest(panelPruebas, panelFlujos), c);
+        c.gridx = 4;
+        add(columnaFlujos(), c);
         c.gridy = 1;
         c.gridwidth = 4;
         c.gridx = 0;
@@ -93,7 +101,7 @@ public class Principal extends JFrame implements MensajesObserver {
         c.gridy = 2;
         c.gridwidth = 5;
         c.gridx = 0;
-        add(vistaMensaje(), c);
+        add(vistaMensaje(), c); // Vista de los mensajes (correcto o fallo)
 
         System.out.println("HashCode de la instancia en views: " + preferencias.hashCode());
 
@@ -102,8 +110,8 @@ public class Principal extends JFrame implements MensajesObserver {
         setVisible(true);
     }
 
-    private JPanel columnaNivel() {
-        JLabel titulo = new JLabel("Nivel", SwingConstants.CENTER);
+    private JPanel columnaTipoPrueba() {
+        JLabel titulo = new JLabel("Tipo de Prueba", SwingConstants.CENTER);
         JPanel secundario = new JPanel(new BorderLayout());
 
         //secundario.setBackground(Color.decode("#505151"));
@@ -112,37 +120,62 @@ public class Principal extends JFrame implements MensajesObserver {
         titulo.setPreferredSize(new Dimension(300, 25));
         titulo.setFont(new Font("Arial", Font.BOLD, 15));
 
-        Principal.panelNivel.setLayout(new BoxLayout(Principal.panelNivel, BoxLayout.Y_AXIS));
-        Principal.panelNivel.setBackground(Color.decode("#505151"));
+        Principal.panelTipoPrueba.setLayout(new BoxLayout(Principal.panelTipoPrueba, BoxLayout.Y_AXIS));
+        Principal.panelTipoPrueba.setBackground(Color.decode("#505151"));
 
         secundario.add(titulo, BorderLayout.NORTH);
-        for (int i = 1; i <= 3; i++) {
-            int valor = i;
-            JButton temp = new JButton("Nivel " + valor);
-            temp.setAlignmentX(Component.CENTER_ALIGNMENT);
-            temp.addActionListener(new AccionBtn(Principal.panelNivel, Principal.panelNavegador));
-            temp.addActionListener(e -> {
-                preferencias.valorAtributo("nivelTest", String.valueOf(valor));
-                temp.setBackground(new Color(158, 218, 255));
-                temp.setSelected(true);
-            });
 
-            Principal.panelNivel.add(temp);
-        }
+        JButton webBtn = new JButton("Web");
+        webBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+        webBtn.addActionListener(new AccionBtn(Principal.panelTipoPrueba, Principal.panelMedioPrueba));
+        webBtn.addActionListener(e -> {
+            preferencias.valorAtributo("typeTest", "web");
+            webBtn.setBackground(new Color(158, 218, 255));
+            webBtn.setSelected(true);
+            List<JButton> botones = obtenerTodosLosJButtons(this);
+            for (JButton boton : botones) {
+                if (boton.getText().equals("Android") || boton.getText().equals("iOS")) {
+                    boton.setVisible(false);
+                } else if (boton.getText().equals("Chrome") || boton.getText().equals("Firefox") || boton.getText().equals("Edge") || boton.getText().equals("Safari")) {
+                    boton.setVisible(true);
+                }
+            }
+        });
+        Principal.panelTipoPrueba.add(webBtn);
 
-        secundario.add(Principal.panelNivel, BorderLayout.CENTER);
+        JButton mobileBtn = new JButton("Mobile");
+        mobileBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+        mobileBtn.addActionListener(new AccionBtn(Principal.panelTipoPrueba, Principal.panelMedioPrueba));
+        mobileBtn.addActionListener(e -> {
+            preferencias.valorAtributo("typeTest", "mobile");
+            mobileBtn.setBackground(new Color(158, 218, 255));
+            mobileBtn.setSelected(true);
+            List<JButton> botones = obtenerTodosLosJButtons(this);
+            for (JButton boton : botones) {
+                if (boton.getText().equals("Chrome") || boton.getText().equals("Firefox") || boton.getText().equals("Edge") || boton.getText().equals("Safari")) {
+                    boton.setVisible(false);
+                } else if (boton.getText().equals("Android") || boton.getText().equals("iOS")) {
+                    boton.setVisible(true);
+                }
+            }
+        });
+        Principal.panelTipoPrueba.add(mobileBtn);
+
+        secundario.add(Principal.panelTipoPrueba, BorderLayout.CENTER);
 
         return secundario;
     }
 
-    private JPanel columnaNavegador() {
-        JLabel titulo = new JLabel("Navegador", SwingConstants.CENTER);
+    private JPanel columnaMedioPrueba() {
+        JLabel titulo = new JLabel("Medio de prueba", SwingConstants.CENTER);
         JPanel secundario = new JPanel(new BorderLayout());
 
         JButton btnChrome = new JButton("Chrome", iconoRedimensionado(Objects.requireNonNull(Bi_helper.rutaImg("Chrome.png")), 25, 25));
         JButton btnFirefox = new JButton("Firefox", iconoRedimensionado(Objects.requireNonNull(Bi_helper.rutaImg("Firefox.png")), 25, 25));
         JButton btnEdge = new JButton("Edge", iconoRedimensionado(Objects.requireNonNull(Bi_helper.rutaImg("Edge.png")), 25, 25));
         JButton btnSafari = new JButton("Safari", iconoRedimensionado(Objects.requireNonNull(Bi_helper.rutaImg("Safari.png")), 25, 25));
+        JButton btnAndroid = new JButton("Android", iconoRedimensionado(Objects.requireNonNull(Bi_helper.rutaImg("Android.png")), 25, 25));
+        JButton btnIos = new JButton("iOS", iconoRedimensionado(Objects.requireNonNull(Bi_helper.rutaImg("Ios.png")), 25, 25));
 
         //secundario.setBackground(colorFondo);
         secundario.setPreferredSize(new Dimension(150, 270));
@@ -150,11 +183,11 @@ public class Principal extends JFrame implements MensajesObserver {
         titulo.setPreferredSize(new Dimension(300, 25));
         titulo.setFont(new Font("Arial", Font.BOLD, 15));
 
-        Principal.panelNavegador.setLayout(new BoxLayout(Principal.panelNavegador, BoxLayout.Y_AXIS));
-        Principal.panelNavegador.setBackground(Color.decode("#505151"));
+        Principal.panelMedioPrueba.setLayout(new BoxLayout(Principal.panelMedioPrueba, BoxLayout.Y_AXIS));
+        Principal.panelMedioPrueba.setBackground(Color.decode("#505151"));
 
         btnChrome.setAlignmentX(Component.CENTER_ALIGNMENT);
-        btnChrome.addActionListener(new AccionBtn(Principal.panelNavegador, Principal.panelAmbiente));
+        btnChrome.addActionListener(new AccionBtn(Principal.panelMedioPrueba, Principal.panelAmbiente));
         btnChrome.addActionListener(e -> {
             preferencias.valorAtributo("navegadorTipo", "1");
             preferencias.valorAtributo("navegadorNombre", "Chrome");
@@ -163,7 +196,7 @@ public class Principal extends JFrame implements MensajesObserver {
         });
 
         btnFirefox.setAlignmentX(Component.CENTER_ALIGNMENT);
-        btnFirefox.addActionListener(new AccionBtn(Principal.panelNavegador, Principal.panelAmbiente));
+        btnFirefox.addActionListener(new AccionBtn(Principal.panelMedioPrueba, Principal.panelAmbiente));
         btnFirefox.addActionListener(e -> {
             preferencias.valorAtributo("navegadorTipo", "2");
             preferencias.valorAtributo("navegadorNombre", "Firefox");
@@ -172,7 +205,7 @@ public class Principal extends JFrame implements MensajesObserver {
         });
 
         btnEdge.setAlignmentX(Component.CENTER_ALIGNMENT);
-        btnEdge.addActionListener(new AccionBtn(Principal.panelNavegador, Principal.panelAmbiente));
+        btnEdge.addActionListener(new AccionBtn(Principal.panelMedioPrueba, Principal.panelAmbiente));
         btnEdge.addActionListener(e -> {
             preferencias.valorAtributo("navegadorTipo", "3");
             preferencias.valorAtributo("navegadorNombre", "Edge");
@@ -181,7 +214,7 @@ public class Principal extends JFrame implements MensajesObserver {
         });
 
         btnSafari.setAlignmentX(Component.CENTER_ALIGNMENT);
-        btnSafari.addActionListener(new AccionBtn(Principal.panelNavegador, Principal.panelAmbiente));
+        btnSafari.addActionListener(new AccionBtn(Principal.panelMedioPrueba, Principal.panelAmbiente));
         btnSafari.addActionListener(e -> {
             preferencias.valorAtributo("navegadorTipo", "4");
             preferencias.valorAtributo("navegadorNombre", "Safari");
@@ -189,12 +222,32 @@ public class Principal extends JFrame implements MensajesObserver {
             btnSafari.setSelected(true);
         });
 
+        btnAndroid.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnAndroid.addActionListener(new AccionBtn(Principal.panelMedioPrueba, Principal.panelPruebas));
+        btnAndroid.addActionListener(e -> {
+            preferencias.valorAtributo("dispositivoTipo", "1");
+            preferencias.valorAtributo("dispositivoNombre", "Android");
+            btnAndroid.setBackground(colorFondo);
+            btnAndroid.setSelected(true);
+        });
+
+        btnIos.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnIos.addActionListener(new AccionBtn(Principal.panelMedioPrueba, Principal.panelPruebas));
+        btnIos.addActionListener(e -> {
+            preferencias.valorAtributo("dispositivoTipo", "2");
+            preferencias.valorAtributo("dispositivoNombre", "iOS");
+            btnIos.setBackground(colorFondo);
+            btnIos.setSelected(true);
+        });
+
         secundario.add(titulo, BorderLayout.NORTH);
-        Principal.panelNavegador.add(btnChrome);
-        Principal.panelNavegador.add(btnFirefox);
-        Principal.panelNavegador.add(btnEdge);
-        Principal.panelNavegador.add(btnSafari);
-        secundario.add(Principal.panelNavegador, BorderLayout.CENTER);
+        Principal.panelMedioPrueba.add(btnChrome);
+        Principal.panelMedioPrueba.add(btnFirefox);
+        Principal.panelMedioPrueba.add(btnEdge);
+        Principal.panelMedioPrueba.add(btnSafari);
+        Principal.panelMedioPrueba.add(btnAndroid);
+        Principal.panelMedioPrueba.add(btnIos);
+        secundario.add(Principal.panelMedioPrueba, BorderLayout.CENTER);
 
         return secundario;
     }
@@ -233,7 +286,7 @@ public class Principal extends JFrame implements MensajesObserver {
     }
 
     public JPanel columnaTest(JPanel actual, JPanel siguiente) {
-        JLabel titulo = new JLabel("Test", SwingConstants.CENTER);
+        JLabel titulo = new JLabel("Modulos", SwingConstants.CENTER);
         JPanel secundario = new JPanel(new BorderLayout());
 
         //secundario.setBackground(colorFondo);
@@ -245,32 +298,36 @@ public class Principal extends JFrame implements MensajesObserver {
         actual.setLayout(new BoxLayout(actual, BoxLayout.Y_AXIS));
         actual.setBackground(Color.decode("#505151"));
 
+        // Identificación de Flujos Login
         JButton test1 = new JButton("Login");
         test1.setAlignmentX(Component.CENTER_ALIGNMENT);
         test1.addActionListener(new AccionBtn(actual, siguiente));
         test1.addActionListener(e -> {
             test1.setBackground(colorFondo);
             test1.setSelected(true);
-            try {
-                Login.main(null);
-            } finally {
-                if (Mensajes.getMensaje().isEmpty()) {
-                    actualizar(new ArrayList<>());
+            List<JButton> botones = obtenerTodosLosJButtons(this);
+            for (JButton boton : botones) {
+                if (boton.getText().contains("Login -")) {
+                    boton.setVisible(true);
+                } else if (boton.getText().contains("Transferencia Propia -")){
+                    boton.setVisible(false);
                 }
             }
         });
 
+        // Identificación de Flujos Transferencia Propia
         JButton test2 = new JButton("Transferencias Propias");
         test2.setAlignmentX(Component.CENTER_ALIGNMENT);
         test2.addActionListener(new AccionBtn(actual, siguiente));
         test2.addActionListener(e -> {
             test2.setBackground(colorFondo);
             test2.setSelected(true);
-            try {
-                Transferencia_propia.main(null);
-            } finally {
-                if (Mensajes.getMensaje().isEmpty()) {
-                    actualizar(new ArrayList<>());
+            List<JButton> botones = obtenerTodosLosJButtons(this);
+            for (JButton boton : botones) {
+                if (boton.getText().contains("Transferencia Propia -")) {
+                    boton.setVisible(true);
+                } else if (boton.getText().contains("Login -")){
+                    boton.setVisible(false);
                 }
             }
         });
@@ -279,6 +336,56 @@ public class Principal extends JFrame implements MensajesObserver {
         actual.add(test1);
         actual.add(test2);
         secundario.add(actual, BorderLayout.CENTER);
+
+        return secundario;
+    }
+
+    public JPanel columnaFlujos() {
+        JLabel titulo = new JLabel("Flujos", SwingConstants.CENTER);
+        JPanel secundario = new JPanel(new BorderLayout());
+
+        //secundario.setBackground(colorFondo);
+        secundario.setPreferredSize(new Dimension(200, 270));
+
+        titulo.setPreferredSize(new Dimension(300, 25));
+        titulo.setFont(new Font("Arial", Font.BOLD, 15));
+
+        Principal.panelFlujos.setLayout(new BoxLayout(Principal.panelFlujos, BoxLayout.Y_AXIS));
+        Principal.panelFlujos.setBackground(Color.decode("#505151"));
+
+        // Configuración de los botones de los flujos de prueba
+        for (int i = 1; i <= 10; i++) {
+            int valor = i;
+            String nombre = "";
+            if (valor <= 5) {
+                nombre = "Login - " + valor;
+            } else {
+                nombre = "Transferencia Propia - " + valor;
+            }
+            JButton test = new JButton(nombre);
+            test.setAlignmentX(Component.CENTER_ALIGNMENT);
+            test.addActionListener(new AccionBtn(Principal.panelFlujos, Principal.panelReinicio));
+            test.addActionListener(e -> {
+                test.setBackground(colorFondo);
+                test.setSelected(true);
+                try {
+                    if (valor <= 5) {
+                        Login.main(null);
+                    } else {
+                        Transferencia_propia.main(null);
+                    }
+                } finally {
+                    if (Mensajes.getMensaje().isEmpty()) {
+                        actualizar(new ArrayList<>());
+                    }
+                }
+            });
+            Principal.panelFlujos.add(test);
+        }
+
+        secundario.add(titulo, BorderLayout.NORTH);
+        secundario.add(Principal.panelFlujos, BorderLayout.CENTER);
+        secundario.add(new JScrollPane(Principal.panelFlujos));
 
         return secundario;
     }
@@ -399,9 +506,9 @@ public class Principal extends JFrame implements MensajesObserver {
             boton.setBackground(tmp);
         }
 
-        for (Component panelNivel : panelNivel.getComponents()) {
-            if (panelNivel instanceof JButton) {
-                panelNivel.setEnabled(true);
+        for (Component panelTipoPrueba : panelTipoPrueba.getComponents()) {
+            if (panelTipoPrueba instanceof JButton) {
+                panelTipoPrueba.setEnabled(true);
             }
         }
 
