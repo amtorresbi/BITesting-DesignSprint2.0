@@ -24,7 +24,7 @@ public class Preferencias {
         atributos.put("home", home);
         atributos.put("baseUrl", System.getProperty("user.dir"));
         atributos.put("rutaExcel", home + "\\Documents\\Automatizacion BEL Web\\Datos.xlsx");
-        atributos.put("paginaWeb", "https://www.bienlinea.bi.com.gt");
+        atributos.put("paginaWeb", "https://pruebas.bi.com.gt/InicioSesion/Inicio/Autenticar#!");
         atributos.put("bitacora", home + "\\Documents\\Automatizacion BEL Web\\Operacional.xlsx");
         atributos.put("rutaJson", home + "\\Documents\\Automatizacion BEL Web\\Resourses\\ElementsPage.json");
         atributos.put("rutaJsonAmbiente", home + "\\Documents\\Automatizacion BEL Web\\Resourses\\ambientes.json");

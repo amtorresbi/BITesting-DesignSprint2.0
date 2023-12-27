@@ -20,7 +20,7 @@ public class Transferencia_propia_page extends General_page {
             .xpath(Bi_helper.obtenerDato("transferenciaTarjetaPrepago", "xpath", TRANSFERENCIA_MENU_JSON));
     public By transferenciaHistorial = By
             .xpath(Bi_helper.obtenerDato("transferenciaHistorial", "xpath", TRANSFERENCIA_MENU_JSON));
-    public By seleccionarListaDebitar = By.xpath(Bi_helper.obtenerDato("selectCuentaDebitar", "xpath", DATA_JSON));
+    public By seleccionarListaDebitar = By.id(Bi_helper.obtenerDato("selectCuentaDebitar", "id", DATA_JSON));
     public By seleccionarListaAcreditar = By.xpath(Bi_helper.obtenerDato("selectCuentaAcreditar", "xpath", DATA_JSON));
     public By formMontoDebito = By.id(Bi_helper.obtenerDato("formMontoDebito", "id", DATA_JSON));
     public By formComentario = By.id(Bi_helper.obtenerDato("formComentario", "id", DATA_JSON));
@@ -50,12 +50,27 @@ public class Transferencia_propia_page extends General_page {
     }
 
     public void clickseleccionarListaDebitar() {
-        esperaExplicita(seleccionarListaDebitar, Duration.ofSeconds(10));
-        click(seleccionarListaDebitar);
+        try {
+            System.out.println("entre a tratr de dar click");
+            System.out.println("es visible: " + esVisible(seleccionarListaDebitar));
+            //esperaExplicita(seleccionarListaDebitar, Duration.ofSeconds(10));
+            System.out.println("espere para dar click");
+            click(seleccionarListaDebitar);
+            System.out.println("di click");
+        }catch (Exception e){
+            System.out.println("error al dar click: "+e.getMessage());
+        }
+        
     }
 
     public boolean seleccionarListaDebitar(String cuenta) {
-        return seleccionarLista(seleccionarListaDebitar, cuenta);
+        try{
+            return seleccionarLista(seleccionarListaDebitar, cuenta);
+        }
+        catch (Exception e){
+            System.out.println("error al seleccionar lista debitar: "+e.getMessage());
+            return false;
+        }
     }
 
     public void clickseleccionarListaAcreditar() {
