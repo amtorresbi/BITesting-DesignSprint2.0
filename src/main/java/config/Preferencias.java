@@ -17,7 +17,7 @@ public class Preferencias {
 
     private static Preferencias instancia;
     private static Map<String, String> atributos;
-    private static final String entorno = "production";
+    private static final String entorno = "development";
 
     private Preferencias() {
         String home = System.getProperty("user.home");

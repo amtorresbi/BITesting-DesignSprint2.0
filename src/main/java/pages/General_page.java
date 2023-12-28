@@ -1,8 +1,13 @@
 package pages;
 
 import config.Preferencias;
+import io.appium.java_client.AppiumBy;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.options.UiAutomator2Options;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -17,6 +22,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.SkipException;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.time.Duration;
 import java.util.List;
 import java.util.Objects;
@@ -24,6 +31,7 @@ import java.util.Objects;
 public class General_page {
 
     private static WebDriver driver;
+    private static AndroidDriver driverandroid;
     private String NAVEGADOR_TIPO = Preferencias.getInstance().obtenerAtributo("navegadorTipo");
 
     public General_page() {
@@ -67,6 +75,12 @@ public class General_page {
 
     }
 
+    public void iniciarNavegadorAndroid() throws MalformedURLException {
+        MutableCapabilities capabilities = new UiAutomator2Options();
+        driverandroid = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
+
+    }
+
     /**
      * Retorna el driver previamente instanciado
      *
@@ -74,6 +88,10 @@ public class General_page {
      */
     public static WebDriver obtenerDriver() {
         return driver;
+    }
+
+    public static AndroidDriver obtenerAndroidDriver() {
+        return driverandroid;
     }
 
     /**
@@ -111,6 +129,16 @@ public class General_page {
     }
 
     /**
+     * Obtener varios elementos dentro de otro elemento
+     *
+     * @param objeto By, obj WebElement
+     * @return List
+     */
+    public List<WebElement> buscarElementos(WebElement obj, By objeto) {
+        return obj.findElements(objeto);
+    }
+
+    /**
      * Devuelve el texto de un elemento
      *
      * @param objeto By
@@ -118,6 +146,11 @@ public class General_page {
      */
     public String obtenerTexto(By objeto) {
         return driver.findElement(objeto).getText();
+    }
+
+    public void scrollEntregable() {
+        //Scroll hasta encontrar el elemento txtEntregrable
+        driverandroid.findElement(AppiumBy.androidUIAutomator("new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().textContains(\"Entregable\"))"));
     }
 
     /**
@@ -142,12 +175,31 @@ public class General_page {
     }
 
     /**
+     * Escribe texto en el elemento en android
+     *
+     * @param objeto By
+     * @param texto  String
+     */
+    public void escribirAndroid(By objeto, String texto) {
+        driverandroid.findElement(objeto).sendKeys(texto);
+    }
+
+    /**
      * Da click en el elemento ubicado
      *
      * @param objeto By
      */
     public void click(By objeto) {
         driver.findElement(objeto).click();
+    }
+
+    /**
+     * Da click en el elemento ubicado en Android
+     *
+     * @param objeto By
+     */
+    public void clickAndroid(By objeto) {
+        driverandroid.findElement(objeto).click();
     }
 
     /**
@@ -193,6 +245,19 @@ public class General_page {
     public WebElement esperaExplicita(By objeto, Duration time) {
         WebDriverWait wait = new WebDriverWait(driver, time);
         WebElement elemento = wait.until(ExpectedConditions.visibilityOfElementLocated(objeto));
+        return elemento;
+    }
+
+    /**
+     * Ejecuta una espera explicita para android
+     *
+     * @param objeto Elemento ubicado
+     * @param time   <pre>Duration.ofSeconds(time)</pre>
+     * @return WebElement
+     */
+    public WebElement esperaExplicitaAndroid(By objeto, Duration time) {
+        WebDriverWait wait = new WebDriverWait(driverandroid, time);
+        WebElement elemento = (WebElement) wait.until(ExpectedConditions.presenceOfElementLocated(objeto));
         return elemento;
     }
 

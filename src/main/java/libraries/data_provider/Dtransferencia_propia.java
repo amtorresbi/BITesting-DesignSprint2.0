@@ -26,7 +26,6 @@ public class Dtransferencia_propia extends ReadExcelFile {
     }
 
     @DataProvider(name = "Operacion")
-
     public Object[][] getDatos() throws IOException {
         List<Operacion> transacciones = new ArrayList<>();
 

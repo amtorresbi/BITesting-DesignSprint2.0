@@ -1,0 +1,92 @@
+{
+	"btnCancelarGPS": {
+		"id": "gt.com.bi.bienlinea.dev:id/btn_cancel_permission"
+	},
+    "btnSkipTutorial": {
+        "id": "gt.com.bi.bienlinea.dev:id/text_skip"
+    },
+    "btnFlags": {
+        "id": "gt.com.bi.bienlinea.dev:id/btn_feature_flags"
+    },
+    "txtEntregable": {
+        "id": "gt.com.bi.bienlinea.dev:id/url_env"
+    },
+    "btnReiniciar": {
+        "id": "gt.com.bi.bienlinea.dev:id/snackbar_action"
+    },
+    "btnDespliegueCampos": {
+        "id": "gt.com.bi.bienlinea.dev:id/iv_entry_data_arrow"
+    },
+    "txtCodigo": {
+        "id": "gt.com.bi.bienlinea.dev:id/edit_code"
+    },
+    "txtUsuario": {
+        "id": "gt.com.bi.bienlinea.dev:id/edit_user"
+    },
+    "txtContrasena": {
+        "id": "gt.com.bi.bienlinea.dev:id/edit_password"
+    },
+    "btnLogin": {
+        "id": "gt.com.bi.bienlinea.dev:id/btn_login"
+    },
+    "btnAceptar": {
+        "id": "android:id/button1"
+    },
+    "btnCancelar": {
+        "id": "android:id/button2"
+    },
+    "txtToken": {
+        "id": "gt.com.bi.bienlinea.dev:id/edit_token"
+    },
+    "btnToken": {
+        "id": "gt.com.bi.bienlinea.dev:id/btn_token_in"
+    },
+    "btnCancelarFID": {
+        "id": "gt.com.bi.bienlinea.dev:id/text_no_thanks"
+    },
+    "btnFav": {
+        "accessibilityId": "Favorites"
+    },
+    "btnHamb": {
+        "accessibilityId": "Open navigation drawer"
+    },
+    "btnTransferencias": {
+        "id": "gt.com.bi.bienlinea.dev:id/nav_transfers"
+    },
+    "lstCuentaDebitar": {
+        "id": "gt.com.bi.bienlinea.dev:id/card_from_transfer"
+    },
+    "contCuentas": {
+        "id": "gt.com.bi.bienlinea.dev:id/recycler_type_account"
+    },
+    "lstCuentas": {
+        "className": "android.widget.FrameLayout"
+    },
+    "lstCuentaAcreditar": {
+        "id": "gt.com.bi.bienlinea.dev:id/card_accredit"
+    },
+    "lcontCuentas": {
+        "id": "gt.com.bi.bienlinea.dev:id/recycler_accredit_accounts"
+    },
+    "llstCuentas": {
+        "className": "androidx.recyclerview.widget.RecyclerView"
+    },
+    "lstCuentas2": {
+        "className": "android.widget.FrameLayout"
+    },
+    "txtMonto": {
+        "id": "gt.com.bi.bienlinea.dev:id/edit_amount_transfer"
+    },
+    "txtComentario": {
+        "id": "gt.com.bi.bienlinea.dev:id/edit_comment_transfer"
+    },
+    "btnTransferir": {
+        "id": "gt.com.bi.bienlinea.dev:id/btn_transfer"
+    },
+    "btnConfirmar": {
+        "id": "gt.com.bi.bienlinea.dev:id/btn_accept_transfer"
+    },
+    "btnCerrarComprobante": {
+        "id": "gt.com.bi.bienlinea.dev:id/image_close"
+    }
+}   
