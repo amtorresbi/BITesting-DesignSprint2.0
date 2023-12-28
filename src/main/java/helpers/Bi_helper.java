@@ -211,7 +211,7 @@ public class Bi_helper {
 
     public static ImageIcon rutaImg(String archivo) {
         if (entorno.equals("development")) {
-            new ImageIcon(Preferencias.getInstance().obtenerAtributo("baseUrl") + "/src/main/resources/img/" + archivo);
+            return new ImageIcon(Preferencias.getInstance().obtenerAtributo("baseUrl") + "/src/main/resources/img/" + archivo);
         } else if (entorno.equals("production")) {
             try (InputStream temp = Bi_helper.class.getResourceAsStream("/img/" + archivo)) {
                 Image image = ImageIO.read(Objects.requireNonNull(temp));

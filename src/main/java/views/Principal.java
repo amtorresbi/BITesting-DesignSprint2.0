@@ -11,6 +11,7 @@ import controllers.transferencia.Transferencia_propia;
 import controllers.transferencia.Transferencia_propia_f2;
 import controllers.transferencia.Transferencia_propia_f3;
 import controllers.transferencia.Transferencia_propia_f4;
+import controllers.transferencia.Tpropias_belapp;
 // IMPORT HELPERS
 import helpers.Bi_helper;
 
@@ -42,6 +43,7 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -317,13 +319,25 @@ public class Principal extends JFrame implements MensajesObserver {
             test1.setBackground(colorFondo);
             test1.setSelected(true);
             List<JButton> botones = obtenerTodosLosJButtons(panelFlujos); // Obtener todos los botones del panel de flujos
-            for (JButton boton : botones) {
-                if (boton.getText().contains("Login -")) {
-                    boton.setVisible(true);
-                } else {
-                    boton.setVisible(false);
+            String tipoPrueba = preferencias.obtenerAtributo("typeTest");            
+            if (tipoPrueba == "web") {
+                for (JButton boton : botones) {
+                    if (boton.getText().contains("Login - WEB -")) {
+                        boton.setVisible(true);
+                    } else {
+                        boton.setVisible(false);
+                    }
+                }
+            } else if (tipoPrueba == "mobile") {
+                for (JButton boton : botones) {
+                    if (boton.getText().contains("Login - Online -") || boton.getText().contains("Login - Fisico -")) {
+                        boton.setVisible(true);
+                    } else {
+                        boton.setVisible(false);
+                    }
                 }
             }
+
         });
 
         // Identificación de Flujos Transferencia Propia
@@ -334,11 +348,22 @@ public class Principal extends JFrame implements MensajesObserver {
             test2.setBackground(colorFondo);
             test2.setSelected(true);
             List<JButton> botones = obtenerTodosLosJButtons(panelFlujos); // Obtener todos los botones del panel de flujos
-            for (JButton boton : botones) {
-                if (boton.getText().contains("TP -")) {
-                    boton.setVisible(true);
-                } else {
-                    boton.setVisible(false);
+            String tipoPrueba = preferencias.obtenerAtributo("typeTest");
+            if (tipoPrueba == "web") {
+                for (JButton boton : botones) {
+                    if (boton.getText().contains("TP - WEB -")) {
+                        boton.setVisible(true);
+                    } else {
+                        boton.setVisible(false);
+                    }
+                }
+            } else if (tipoPrueba == "mobile") {
+                for (JButton boton : botones) {
+                    if (boton.getText().contains("TP - Online -") || boton.getText().contains("TP - Fisico -")) {
+                        boton.setVisible(true);
+                    } else {
+                        boton.setVisible(false);
+                    }
                 }
             }
         });
@@ -365,30 +390,26 @@ public class Principal extends JFrame implements MensajesObserver {
         Principal.panelFlujos.setBackground(Color.decode("#505151"));
 
         // Configuración de los botones de los flujos de prueba
-        for (int i = 1; i <= 5; i++) {
-            int valor = i;
-            String nombre = "Login - " + valor;
-
-            JButton test = new JButton(nombre);
-            test.setAlignmentX(Component.CENTER_ALIGNMENT);
-            test.addActionListener(new AccionBtn(Principal.panelFlujos, Principal.panelReinicio));
-            test.addActionListener(e -> {
-                test.setBackground(colorFondo);
-                test.setSelected(true);
-                try {
-                    Login.main(null);
-                    toFront();
-                } finally {
-                    if (Mensajes.getMensaje().isEmpty()) {
-                        actualizar(new ArrayList<>());
-                    }
+        // Login - WEB - F1
+        JButton test = new JButton("Login - WEB - F1");
+        test.setAlignmentX(Component.CENTER_ALIGNMENT);
+        test.addActionListener(new AccionBtn(Principal.panelFlujos, Principal.panelReinicio));
+        test.addActionListener(e -> {
+            test.setBackground(colorFondo);
+            test.setSelected(true);
+            try {
+                Login.main(null);
+                toFront();
+            } finally {
+                if (Mensajes.getMensaje().isEmpty()) {
+                    actualizar(new ArrayList<>());
                 }
-            });
-            Principal.panelFlujos.add(test);
-        }
+            }
+        });
+        Principal.panelFlujos.add(test);
 
-        // TP - F1
-        JButton tpF1 = new JButton("TP - F1");
+        // TP - WEB - F1
+        JButton tpF1 = new JButton("TP - WEB - F1");
         tpF1.setAlignmentX(Component.CENTER_ALIGNMENT);
         tpF1.addActionListener(new AccionBtn(Principal.panelFlujos, Principal.panelReinicio));
         tpF1.addActionListener(e -> {
@@ -405,8 +426,8 @@ public class Principal extends JFrame implements MensajesObserver {
         });
         Principal.panelFlujos.add(tpF1);
 
-        // TP - F2
-        JButton tpF2 = new JButton("TP - F2");
+        // TP - WEB - F2
+        JButton tpF2 = new JButton("TP - WEB - F2");
         tpF2.setAlignmentX(Component.CENTER_ALIGNMENT);
         tpF2.addActionListener(new AccionBtn(Principal.panelFlujos, Principal.panelReinicio));
         tpF2.addActionListener(e -> {
@@ -423,8 +444,8 @@ public class Principal extends JFrame implements MensajesObserver {
         });
         Principal.panelFlujos.add(tpF2);
 
-        // TP - F3
-        JButton tpF3 = new JButton("TP - F3");
+        // TP - WEB - F3
+        JButton tpF3 = new JButton("TP - WEB - F3");
         tpF3.setAlignmentX(Component.CENTER_ALIGNMENT);
         tpF3.addActionListener(new AccionBtn(Principal.panelFlujos, Principal.panelReinicio));
         tpF3.addActionListener(e -> {
@@ -441,8 +462,8 @@ public class Principal extends JFrame implements MensajesObserver {
         });
         Principal.panelFlujos.add(tpF3);
 
-        // TP - F4
-        JButton tpF4 = new JButton("TP - F4");
+        // TP - WEB - F4
+        JButton tpF4 = new JButton("TP - WEB - F4");
         tpF4.setAlignmentX(Component.CENTER_ALIGNMENT);
         tpF4.addActionListener(new AccionBtn(Principal.panelFlujos, Principal.panelReinicio));
         tpF4.addActionListener(e -> {
@@ -458,6 +479,26 @@ public class Principal extends JFrame implements MensajesObserver {
             }
         });
         Principal.panelFlujos.add(tpF4);
+
+        // TP - Online - F4
+        JButton tpOnF1 = new JButton("TP - Online - F1");
+        tpOnF1.setAlignmentX(Component.CENTER_ALIGNMENT);
+        tpOnF1.addActionListener(new AccionBtn(Principal.panelFlujos, Principal.panelReinicio));
+        tpOnF1.addActionListener(e -> {
+            tpOnF1.setBackground(colorFondo);
+            tpOnF1.setSelected(true);
+            try {
+                Tpropias_belapp.main(null);
+                toFront();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            } finally {
+                if (Mensajes.getMensaje().isEmpty()) {
+                    actualizar(new ArrayList<>());
+                }
+            }
+        });
+        Principal.panelFlujos.add(tpOnF1);
 
         secundario.add(titulo, BorderLayout.NORTH);
         secundario.add(Principal.panelFlujos, BorderLayout.CENTER);
