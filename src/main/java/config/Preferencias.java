@@ -7,6 +7,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -19,8 +21,10 @@ public class Preferencias {
 
     private Preferencias() {
         String home = System.getProperty("user.home");
+        LocalDateTime fecha = LocalDateTime.now();
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm-ss");
+        String fechaActual = fecha.format(formato);
         atributos = new HashMap<>();
-
         atributos.put("home", home);
         atributos.put("baseUrl", System.getProperty("user.dir"));
         atributos.put("rutaExcel", home + "\\Documents\\Automatizacion BEL Web\\Datos.xlsx");
@@ -29,7 +33,7 @@ public class Preferencias {
         atributos.put("rutaJson", home + "\\Documents\\Automatizacion BEL Web\\Resourses\\ElementsPage.json");
         atributos.put("rutaJsonAmbiente", home + "\\Documents\\Automatizacion BEL Web\\Resourses\\ambientes.json");
         atributos.put("rutaJsonConfig", home + "\\Documents\\Automatizacion BEL Web\\Resourses\\Config.json");
-        atributos.put("rutaReporte", home + "\\Documents\\Automatizacion BEL Web\\Reporte.html");
+        atributos.put("rutaReporte", home + "\\Documents\\Automatizacion BEL Web\\Reporte " + fechaActual + ".html");
         atributos.put("nivelTest", "1");
         atributos.put("navegadorTipo", "1");
         atributos.put("navegadorNombre", "Chrome");
