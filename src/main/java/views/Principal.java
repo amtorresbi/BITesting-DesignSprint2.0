@@ -8,6 +8,9 @@ import config.Preferencias;
 // IMPORT TEST SUITES
 import controllers.Login;
 import controllers.transferencia.Transferencia_propia;
+import controllers.transferencia.Transferencia_propia_f2;
+import controllers.transferencia.Transferencia_propia_f3;
+import controllers.transferencia.Transferencia_propia_f4;
 // IMPORT HELPERS
 import helpers.Bi_helper;
 
@@ -39,16 +42,19 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import javax.swing.Timer;
 
 
 public class Principal extends JFrame implements MensajesObserver {
     static Preferencias preferencias = Preferencias.getInstance();
     private String AMBIENTE_JSON = preferencias.obtenerAtributo("rutaJsonAmbiente");
+    private static float percentage = 0;
     private static Map<Integer, String> ambientes = new HashMap<>();
 
     private static JPanel panelTipoPrueba = new JPanel(); // Panel que contiene Web o App
@@ -59,6 +65,8 @@ public class Principal extends JFrame implements MensajesObserver {
     private static JPanel panelReinicio = new JPanel(new BorderLayout());
     private static JPanel panelMensaje = new JPanel(new BorderLayout());
     private static JLabel labelMensaje = new JLabel();
+    private static JPanel panelPorcentaje = new JPanel(new BorderLayout());
+    private static JLabel labelPorcentaje = new JLabel("Porcentaje de tests ejecutados: 0.00%");
 
     private final Color colorFondo = new Color(158, 218, 255);
 
@@ -82,8 +90,11 @@ public class Principal extends JFrame implements MensajesObserver {
         GridBagConstraints c = new GridBagConstraints();
 
         c.insets = new Insets(5, 2, 2, 2);
-        c.gridx = 0;
+        c.gridx = 4;
         c.gridy = 0;
+        add(vistaPorcentaje(), c);
+        c.gridx = 0;
+        c.gridy = 1;
         add(columnaTipoPrueba(), c);
         c.gridx = 1;
         add(columnaMedioPrueba(), c);
@@ -93,12 +104,12 @@ public class Principal extends JFrame implements MensajesObserver {
         add(columnaTest(panelPruebas, panelFlujos), c);
         c.gridx = 4;
         add(columnaFlujos(), c);
-        c.gridy = 1;
-        c.gridwidth = 4;
+        c.gridy = 2;
+        c.gridwidth = 5;
         c.gridx = 0;
         add(btnReinicio(), c);
 
-        c.gridy = 2;
+        c.gridy = 3;
         c.gridwidth = 5;
         c.gridx = 0;
         add(vistaMensaje(), c); // Vista de los mensajes (correcto o fallo)
@@ -223,7 +234,7 @@ public class Principal extends JFrame implements MensajesObserver {
         });
 
         btnAndroid.setAlignmentX(Component.CENTER_ALIGNMENT);
-        btnAndroid.addActionListener(new AccionBtn(Principal.panelMedioPrueba, Principal.panelPruebas));
+        btnAndroid.addActionListener(new AccionBtn(Principal.panelMedioPrueba, Principal.panelAmbiente));
         btnAndroid.addActionListener(e -> {
             preferencias.valorAtributo("dispositivoTipo", "1");
             preferencias.valorAtributo("dispositivoNombre", "Android");
@@ -232,7 +243,7 @@ public class Principal extends JFrame implements MensajesObserver {
         });
 
         btnIos.setAlignmentX(Component.CENTER_ALIGNMENT);
-        btnIos.addActionListener(new AccionBtn(Principal.panelMedioPrueba, Principal.panelPruebas));
+        btnIos.addActionListener(new AccionBtn(Principal.panelMedioPrueba, Principal.panelAmbiente));
         btnIos.addActionListener(e -> {
             preferencias.valorAtributo("dispositivoTipo", "2");
             preferencias.valorAtributo("dispositivoNombre", "iOS");
@@ -305,11 +316,11 @@ public class Principal extends JFrame implements MensajesObserver {
         test1.addActionListener(e -> {
             test1.setBackground(colorFondo);
             test1.setSelected(true);
-            List<JButton> botones = obtenerTodosLosJButtons(this);
+            List<JButton> botones = obtenerTodosLosJButtons(panelFlujos); // Obtener todos los botones del panel de flujos
             for (JButton boton : botones) {
                 if (boton.getText().contains("Login -")) {
                     boton.setVisible(true);
-                } else if (boton.getText().contains("Transferencia Propia -")){
+                } else {
                     boton.setVisible(false);
                 }
             }
@@ -322,11 +333,11 @@ public class Principal extends JFrame implements MensajesObserver {
         test2.addActionListener(e -> {
             test2.setBackground(colorFondo);
             test2.setSelected(true);
-            List<JButton> botones = obtenerTodosLosJButtons(this);
+            List<JButton> botones = obtenerTodosLosJButtons(panelFlujos); // Obtener todos los botones del panel de flujos
             for (JButton boton : botones) {
-                if (boton.getText().contains("Transferencia Propia -")) {
+                if (boton.getText().contains("TP -")) {
                     boton.setVisible(true);
-                } else if (boton.getText().contains("Login -")){
+                } else {
                     boton.setVisible(false);
                 }
             }
@@ -354,14 +365,10 @@ public class Principal extends JFrame implements MensajesObserver {
         Principal.panelFlujos.setBackground(Color.decode("#505151"));
 
         // Configuración de los botones de los flujos de prueba
-        for (int i = 1; i <= 10; i++) {
+        for (int i = 1; i <= 5; i++) {
             int valor = i;
-            String nombre = "";
-            if (valor <= 5) {
-                nombre = "Login - " + valor;
-            } else {
-                nombre = "Transferencia Propia - " + valor;
-            }
+            String nombre = "Login - " + valor;
+
             JButton test = new JButton(nombre);
             test.setAlignmentX(Component.CENTER_ALIGNMENT);
             test.addActionListener(new AccionBtn(Principal.panelFlujos, Principal.panelReinicio));
@@ -369,11 +376,8 @@ public class Principal extends JFrame implements MensajesObserver {
                 test.setBackground(colorFondo);
                 test.setSelected(true);
                 try {
-                    if (valor <= 5) {
-                        Login.main(null);
-                    } else {
-                        Transferencia_propia.main(null);
-                    }
+                    Login.main(null);
+                    toFront();
                 } finally {
                     if (Mensajes.getMensaje().isEmpty()) {
                         actualizar(new ArrayList<>());
@@ -382,6 +386,78 @@ public class Principal extends JFrame implements MensajesObserver {
             });
             Principal.panelFlujos.add(test);
         }
+
+        // TP - F1
+        JButton tpF1 = new JButton("TP - F1");
+        tpF1.setAlignmentX(Component.CENTER_ALIGNMENT);
+        tpF1.addActionListener(new AccionBtn(Principal.panelFlujos, Principal.panelReinicio));
+        tpF1.addActionListener(e -> {
+            tpF1.setBackground(colorFondo);
+            tpF1.setSelected(true);
+            try {
+                Transferencia_propia.main(null);
+                toFront();
+            } finally {
+                if (Mensajes.getMensaje().isEmpty()) {
+                    actualizar(new ArrayList<>());
+                }
+            }
+        });
+        Principal.panelFlujos.add(tpF1);
+
+        // TP - F2
+        JButton tpF2 = new JButton("TP - F2");
+        tpF2.setAlignmentX(Component.CENTER_ALIGNMENT);
+        tpF2.addActionListener(new AccionBtn(Principal.panelFlujos, Principal.panelReinicio));
+        tpF2.addActionListener(e -> {
+            tpF2.setBackground(colorFondo);
+            tpF2.setSelected(true);
+            try {
+                Transferencia_propia_f2.main(null);
+                toFront();
+            } finally {
+                if (Mensajes.getMensaje().isEmpty()) {
+                    actualizar(new ArrayList<>());
+                }
+            }
+        });
+        Principal.panelFlujos.add(tpF2);
+
+        // TP - F3
+        JButton tpF3 = new JButton("TP - F3");
+        tpF3.setAlignmentX(Component.CENTER_ALIGNMENT);
+        tpF3.addActionListener(new AccionBtn(Principal.panelFlujos, Principal.panelReinicio));
+        tpF3.addActionListener(e -> {
+            tpF3.setBackground(colorFondo);
+            tpF3.setSelected(true);
+            try {
+                Transferencia_propia_f3.main(null);
+                toFront();
+            } finally {
+                if (Mensajes.getMensaje().isEmpty()) {
+                    actualizar(new ArrayList<>());
+                }
+            }
+        });
+        Principal.panelFlujos.add(tpF3);
+
+        // TP - F4
+        JButton tpF4 = new JButton("TP - F4");
+        tpF4.setAlignmentX(Component.CENTER_ALIGNMENT);
+        tpF4.addActionListener(new AccionBtn(Principal.panelFlujos, Principal.panelReinicio));
+        tpF4.addActionListener(e -> {
+            tpF4.setBackground(colorFondo);
+            tpF4.setSelected(true);
+            try {
+                Transferencia_propia_f4.main(null);
+                toFront();
+            } finally {
+                if (Mensajes.getMensaje().isEmpty()) {
+                    actualizar(new ArrayList<>());
+                }
+            }
+        });
+        Principal.panelFlujos.add(tpF4);
 
         secundario.add(titulo, BorderLayout.NORTH);
         secundario.add(Principal.panelFlujos, BorderLayout.CENTER);
@@ -408,6 +484,17 @@ public class Principal extends JFrame implements MensajesObserver {
 
         Principal.panelMensaje.add(labelMensaje);
         return Principal.panelMensaje;
+    }
+
+    private JPanel vistaPorcentaje() {
+        Principal.panelPorcentaje.setLayout(new BoxLayout(panelPorcentaje, BoxLayout.Y_AXIS));
+        Principal.panelPorcentaje.setBorder(new LineBorder(Color.black));
+
+        labelPorcentaje.setHorizontalAlignment(JLabel.RIGHT);
+        labelPorcentaje.setText("Porcentaje de tests ejecutados: 0.00%");
+
+        Principal.panelPorcentaje.add(labelPorcentaje);
+        return Principal.panelPorcentaje;
     }
 
     private static class AccionBtn implements ActionListener {
@@ -513,6 +600,8 @@ public class Principal extends JFrame implements MensajesObserver {
         }
 
         Mensajes.limpiarMensaje();
+        // Login.resetValues(); // Modificar para el resto de test suites
+        updateGUI();
         panelMensaje.setVisible(false);
     }
 
@@ -538,10 +627,18 @@ public class Principal extends JFrame implements MensajesObserver {
         Preferencias.getInstance().generarPlantillas();
     }
 
+    private static void updateGUI() {
+        // percentage = Login.getPercentage(); // Modificar para el resto de test suites
+        DecimalFormat df = new DecimalFormat("0.00");
+        labelPorcentaje.setText("Porcentaje de tests ejecutados: " + df.format(percentage) + "%");
+    }
+
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             Principal ventana = new Principal();
             Mensajes.addObserver(ventana);
+            Timer timer = new Timer(1000, e -> updateGUI());
+            timer.start();
         });
     }
 }
