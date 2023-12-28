@@ -17,6 +17,7 @@ public class Principal_page_fx extends General_page {
     public By menuOtrosSitios = By.xpath(Bi_helper.obtenerDato("menuOtrosSitios", "xpath", DATA_JSON));
     public By cerrarSesion = By.xpath(Bi_helper.obtenerDato("btnCerrarSesion", "xpath", DATA_JSON));
     public By home = By.xpath(Bi_helper.obtenerDato("home", "xpath", DATA_JSON));
+    public By opcionVerTodasLasCuentas = By.xpath(Bi_helper.obtenerDato("opcionVerTodasLasCuentas", "xpath", DATA_JSON));
 
     public Principal_page_fx() {
         super();
@@ -42,7 +43,10 @@ public class Principal_page_fx extends General_page {
     }
 
     /***********************/
-     public void clicMenuInformacionDeCuentas() {
+     public void clickMenuInformacionDeCuentas() {
         click(menuinformacionDeCuentas);
+    }
+    public void clickOpcionVerTodasLasCuentas() {
+        click(opcionVerTodasLasCuentas);
     }
 }

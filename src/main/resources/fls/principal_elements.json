@@ -37,5 +37,9 @@
 	"btnCerrarSesion": {
 		"clase": "ic-cerrar-sesion ico2 has-tip tip-bottom",
 		"xpath": "/html/body/div[1]/div[1]/div[1]/div/div[2]/nav/ul/li[6]/a"
+	},
+	"opcionVerTodasLasCuentas":{
+		"clase": "conf_button",
+		"xpath": "/html/body/div[4]/div[3]/div/div[2]/div/div/div[2]/a"
 	}
 }

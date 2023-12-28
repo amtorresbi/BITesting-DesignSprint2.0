@@ -32,8 +32,7 @@ public class Transferencia_propia_test_f3 {
         try {
             ExtentTest test = Reports.createTest("Transferencia Propia de cuenta " + cuentaDebitar + " a " + cuentaAcreditar);
             Reports.assign(test, "EB", "TEST", Preferencias.getInstance().obtenerAtributo("navegadorNombre"));
-            transferenciaModel.accederTransferenciasPropiasF3(test,cuentaDebitar);
-            transferenciaModel.transferenciasFx(test, cuentaDebitar, cuentaAcreditar, monto, linea);
+            transferenciaModel.transferenciasFx(test, cuentaDebitar, cuentaAcreditar, monto, linea,3);
             
         } catch (Exception e) {
             e.printStackTrace();

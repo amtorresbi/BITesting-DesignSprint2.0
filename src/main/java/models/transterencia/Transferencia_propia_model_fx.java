@@ -30,7 +30,7 @@ public class Transferencia_propia_model_fx {
 
     Login_page loginPage = new Login_page();
     Principal_page principalPage = new Principal_page();
-    Principal_page_fx principalPage_f2 = new Principal_page_fx();
+    Principal_page_fx principalPage_fx = new Principal_page_fx();
     Transferencia_propia_page transferenciaPropiaPage = new Transferencia_propia_page();
     Informacion_page informacionPage = new Informacion_page();
     ReadExcelFile readFile = new ReadExcelFile();
@@ -45,7 +45,7 @@ public class Transferencia_propia_model_fx {
         super();
     }
 
-    public void transferenciasFx(ExtentTest test, String cuentaDebitar, String cuentaAcreditar, String monto, int linea) {
+    public void transferenciasFx(ExtentTest test, String cuentaDebitar, String cuentaAcreditar, String monto, int linea, int flujo) {
 
         try {
             String errorTransferencia = "", tipoCambio = "", tipoCuentaDebitar = "",
@@ -55,9 +55,26 @@ public class Transferencia_propia_model_fx {
 
             tipoCuentaDebitar = Bi_helper.obtenerTipoCuenta(cuentaDebitar);
             tipoCuentaAcreditar = Bi_helper.obtenerTipoCuenta(cuentaAcreditar);
-            CuentaDebitar(cuentaDebitar, test);
+            switch (flujo) {
+                case 2:
+                    accederTransferenciasPropiasF2(test, cuentaDebitar);
+                    break;
+                case 3:
+                    accederTransferenciasPropiasF3(test, cuentaDebitar);
+                    break;
+                case 4:
+                    accederTransferenciasPropiasF4(test, cuentaDebitar);
+                    break;
+                default:
+                    break;
+            }
+            if (flujo == 2 || flujo == 3 || flujo == 4){
+                TablaCuentaDebitar(cuentaDebitar, test);
+            }
+            if (flujo == 1 || flujo == 3 || flujo == 4){
+                SelectCuentaDebitar(cuentaDebitar, test);
+            }
             CuentaAcreditar(cuentaAcreditar, test);
-            
             tipoCambio = validarMonedaCruzada(test, monto);
 
             if (Objects.equals(tipoCambio, "N/A")) {
@@ -89,40 +106,47 @@ public class Transferencia_propia_model_fx {
 
     public void accederTransferenciasPropiasF2(ExtentTest test,String cuentaDebitar) {
         try {
-            System.out.println("Estoy aca dentro del acceder transferencias propias");
-            System.out.println(cuentaDebitar);
-             String tipoCuentaDebitar;
-             tipoCuentaDebitar = Bi_helper.obtenerTipoCuenta(cuentaDebitar);
-             System.out.println(tipoCuentaDebitar);
-             principalPage_f2.clicMenuInformacionDeCuentas();
-             Thread.sleep(5000);
-             if (tipoCuentaDebitar.equals("Monetaria")){
-                System.out.println("Estoy aca dentro del if de acceder transferencias propias");
+            String tipoCuentaDebitar;
+            tipoCuentaDebitar = Bi_helper.obtenerTipoCuenta(cuentaDebitar);
+            System.out.println(tipoCuentaDebitar);
+            principalPage_fx.clickMenuInformacionDeCuentas();
+            Thread.sleep(5000);
+            if (tipoCuentaDebitar.equals("Monetaria")){
                 informacionPage.clickinformacionMonetarias();
-             }else if (tipoCuentaDebitar.equals("Ahorro")){
-                System.out.println("Estoy aca dentro del else if de acceder transferencias propias");
+                Reports.logPass(test, "Acceso a transferencias propias flujo 2 Informacion de cuentas Monetaria correcto");
+            }else if (tipoCuentaDebitar.equals("Ahorro")){
                 informacionPage.clickinformacionAhorros();
-             }
-             Reports.logPass(test, "Acceso a transferencias propias correcto");
+                Reports.logPass(test, "Acceso a transferencias propias flujo 2 Informacion de cuentas Ahorro correcto");
+            }else {
+                Reports.logFail(test, "Acceso a transferencias propias incorrecto no se pudo determinar el tipo de cuenta");
+            }
          } catch (Exception e) {
              Reports.logFail(test, "Acceso a transferencias propias incorrecto");
          }
     }
     public void accederTransferenciasPropiasF3(ExtentTest test,String cuentaDebitar) {
         try {
-             principalPage_f2.clicMenuInformacionDeCuentas();
+             principalPage_fx.clickMenuInformacionDeCuentas();
              Thread.sleep(1000);
              informacionPage.clickinformacionTodasLasCuentas();
-             Reports.logPass(test, "Acceso a transferencias propias correcto");
-
+             Reports.logPass(test, "Acceso a transferencias propias flujo 3 Informacion de cuentas Todas las cuentas correcto");
          } catch (Exception e) {
-             Reports.logFail(test, "Acceso a transferencias propias incorrecto");
+             Reports.logFail(test, "Acceso a transferencias propias flujo 3 Informacion de cuentas Todas las cuentas incorrecto");
+         }
+    }
+    public void accederTransferenciasPropiasF4(ExtentTest test,String cuentaDebitar) {
+        try {
+            principalPage_fx.clickHome();
+            Thread.sleep(1000);
+            principalPage_fx.clickOpcionVerTodasLasCuentas();
+            Reports.logPass(test, "Acceso a transferencias propias flujo 4 Informacion de cuentas Todas las cuentas correcto");
+         } catch (Exception e) {
+             Reports.logFail(test, "Acceso a transferencias propias flujo 4 Informacion de cuentas Todas las cuentas incorrecto");
          }
     }
     
-    public void CuentaDebitarf3(String cuenta, ExtentTest test) {
+    public void SelectCuentaDebitar(String cuenta, ExtentTest test) {
         try {
-            transferenciaPropiaPage.clickBtnContinuar();
             transferenciaPropiaPage.clickseleccionarListaDebitar();
             if (transferenciaPropiaPage.seleccionarListaDebitar(cuenta)){
                 Reports.logPass(test, "Cuenta a debitar No." + cuenta + " seleccionada exitosamente");
@@ -135,24 +159,14 @@ public class Transferencia_propia_model_fx {
             System.out.println("Error cuenta debitar: " + e.getMessage());
         }
     }
-    public void CuentaDebitar(String cuenta, ExtentTest test) {
-        // try {
-        //     transferenciaPropiaPage.clickseleccionarListaDebitar();
-        //     if (transferenciaPropiaPage.seleccionarListaDebitar(cuenta))
-        //         Reports.logPass(test, "Cuenta a debitar No." + cuenta + " seleccionada exitosamente");
-        //     else
-        //         Reports.logFail(test, "Cuenta a debitar No." + cuenta + " no encontrada");
-        // } catch (Exception e) {
-        //     Reports.logFail(test, "Fallo al seleccionar la cuenta a debitar No." + cuenta);
-        // }
-
+    public void TablaCuentaDebitar(String cuenta, ExtentTest test) {
         try {
             if (SeleccionarTabla(cuenta, "PROPIAS", 1, 5))
-                Reports.logPass(test, "Cuenta a debitar No." + cuenta + " seleccionada exitosamente");
+                Reports.logPass(test, "Cuenta a debitar No." + cuenta + " seleccionada de tabla exitosamente");
             else
-                Reports.logFail(test, "Cuenta a debitar No." + cuenta + " no encontrada");
+                Reports.logFail(test, "Cuenta a debitar No." + cuenta + " no encontrada en tabla");
         } catch (Exception e) {
-            Reports.logFail(test, "Fallo al seleccionar la cuenta a debitar No." + cuenta);
+            Reports.logFail(test, "Fallo al seleccionar de la tabla la cuenta a debitar No." + cuenta);
         }
     }
 
