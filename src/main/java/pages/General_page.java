@@ -16,6 +16,7 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -78,6 +79,22 @@ public class General_page {
     public void iniciarNavegadorAndroid() throws MalformedURLException {
         MutableCapabilities capabilities = new UiAutomator2Options();
         driverandroid = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
+
+    }
+
+    public void iniciarAndroid() throws MalformedURLException {
+        DesiredCapabilities cap = new DesiredCapabilities();
+        cap.setCapability("appium:noReset", true); // Configura noReset en true
+        cap.setCapability("appium:deviceName", "Galaxy A34 5G");
+        cap.setCapability("appium:udid", "RFCW4273XKK");
+        cap.setCapability("platformName", "Android");
+        cap.setCapability("appium:platformVersion", "13");
+        cap.setCapability("appium:appPackage", "gt.com.bi.bienlinea.dev");
+        cap.setCapability("appium:appActivity", "bienlinea.bi.com.gt.auth.LoginActivity");
+        cap.setCapability("appium:automationName", "UiAutomator2");
+
+        driverandroid = new AndroidDriver(new URL("http://127.0.0.1:4723/"), cap);
+        System.out.println("Application is Connected");
 
     }
 
@@ -149,8 +166,9 @@ public class General_page {
     }
 
     public void scrollEntregable() {
-        //Scroll hasta encontrar el elemento txtEntregrable
-        driverandroid.findElement(AppiumBy.androidUIAutomator("new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().textContains(\"Entregable\"))"));
+        // Scroll hasta encontrar el elemento txtEntregrable
+        driverandroid.findElement(AppiumBy.androidUIAutomator(
+                "new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().textContains(\"Entregable\"))"));
     }
 
     /**
@@ -229,7 +247,11 @@ public class General_page {
     /**
      * Ejecuta una espera implicita. Recibe como parametro el tiempo en milisegundos
      *
-     * @param tiempo <pre>Duration.ofMillis(tiempo)</pre>
+     * @param tiempo
+     * 
+     *               <pre>
+     *               Duration.ofMillis(tiempo)
+     *               </pre>
      */
     public void esperaImplicita(Duration tiempo) {
         driver.manage().timeouts().implicitlyWait(tiempo);
@@ -239,7 +261,12 @@ public class General_page {
      * Ejecuta una espera explicita
      *
      * @param objeto Elemento ubicado
-     * @param time   <pre>Duration.ofSeconds(time)</pre>
+     * @param time
+     * 
+     *               <pre>
+     *               Duration.ofSeconds(time)
+     *               </pre>
+     * 
      * @return WebElement
      */
     public WebElement esperaExplicita(By objeto, Duration time) {
@@ -252,7 +279,12 @@ public class General_page {
      * Ejecuta una espera explicita para android
      *
      * @param objeto Elemento ubicado
-     * @param time   <pre>Duration.ofSeconds(time)</pre>
+     * @param time
+     * 
+     *               <pre>
+     *               Duration.ofSeconds(time)
+     *               </pre>
+     * 
      * @return WebElement
      */
     public WebElement esperaExplicitaAndroid(By objeto, Duration time) {
