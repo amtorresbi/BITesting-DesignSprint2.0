@@ -17,7 +17,7 @@ public class Transferencia_propia_f3 implements ITestListener{
     @Override
     public void onTestStart(ITestResult result) {
         // Este método se ejecuta al inicio de cada test
-        nameTest = result.getName();
+        nameTest = "Test ejecutandose: " + result.getName();
         System.out.println("Iniciando test: " + nameTest);
     }
 
@@ -44,7 +44,7 @@ public class Transferencia_propia_f3 implements ITestListener{
     public static void resetValues() {
         // Método para reiniciar los valores de las variables
         executedTests = 0;
-        nameTest = "No hay ejecución en proceso";
+        nameTest = "¡Test iniciado!";
     }
 
     public static void main(String[] args) {

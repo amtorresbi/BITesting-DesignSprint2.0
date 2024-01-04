@@ -44,7 +44,7 @@ public class Transferencia_propia implements ITestListener {
     public static void resetValues() {
         // Método para reiniciar los valores de las variables
         executedTests = 0;
-        nameTest = "No hay ejecución en proceso";
+        nameTest = "¡Test iniciado!";
     }
 
     public static void main(String[] args) {

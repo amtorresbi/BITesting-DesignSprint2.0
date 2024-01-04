@@ -72,7 +72,7 @@ public class Principal extends JFrame implements MensajesObserver {
     private static JPanel panelReinicio = new JPanel(new BorderLayout()); // Panel que contiene el botón de reinicio
     private static JPanel panelMensaje = new JPanel(new BorderLayout()); // Panel que contiene el mensaje de éxito o fallo
     private static JLabel labelMensaje = new JLabel(); // Label que contiene el mensaje de éxito o fallo
-    private static JLabel labelNameTest = new JLabel("Test en ejecución: No hay ejecución en proceso"); // Label que contiene el nombre del test actual
+    private static JLabel labelNameTest = new JLabel("¡Test iniciado!"); // Label que contiene el nombre del test actual
     private static JLabel labelPorcentaje = new JLabel("Tests ejecutados: 0"); // Label que contiene el porcentaje de tests ejecutados
 
     private final Color colorFondo = new Color(158, 218, 255);
@@ -400,6 +400,8 @@ public class Principal extends JFrame implements MensajesObserver {
         loginWebF1.addActionListener(e -> {
             loginWebF1.setBackground(colorFondo);
             loginWebF1.setSelected(true);
+            percentageFrame.setVisible(true);
+            percentageFrame.toFront();
             try {
                 flowTest = "LoginWEBF1";
                 Login.main(null);
@@ -420,6 +422,8 @@ public class Principal extends JFrame implements MensajesObserver {
         loginOnF1.addActionListener(e -> {
             loginOnF1.setBackground(colorFondo);
             loginOnF1.setSelected(true);
+            percentageFrame.setVisible(true);
+            percentageFrame.toFront();
             try {
                 flowTest = "LoginOnlineF1";
                 Tpropias_belapp.main(null);
@@ -442,6 +446,9 @@ public class Principal extends JFrame implements MensajesObserver {
         tpWebF1.addActionListener(e -> {
             tpWebF1.setBackground(colorFondo);
             tpWebF1.setSelected(true);
+            
+            percentageFrame.setVisible(true);
+            percentageFrame.toFront();
             try {
                 flowTest = "TPWEBF1";
                 Transferencia_propia.main(null);
@@ -462,6 +469,8 @@ public class Principal extends JFrame implements MensajesObserver {
         tpWebF2.addActionListener(e -> {
             tpWebF2.setBackground(colorFondo);
             tpWebF2.setSelected(true);
+            percentageFrame.setVisible(true);
+            percentageFrame.toFront();
             try {
                 flowTest = "TPWEBF2";
                 Transferencia_propia_f2.main(null);
@@ -482,6 +491,8 @@ public class Principal extends JFrame implements MensajesObserver {
         tpWebF3.addActionListener(e -> {
             tpWebF3.setBackground(colorFondo);
             tpWebF3.setSelected(true);
+            percentageFrame.setVisible(true);
+            percentageFrame.toFront();
             try {
                 flowTest = "TPWEBF3";
                 Transferencia_propia_f3.main(null);
@@ -502,6 +513,8 @@ public class Principal extends JFrame implements MensajesObserver {
         tpWebF4.addActionListener(e -> {
             tpWebF4.setBackground(colorFondo);
             tpWebF4.setSelected(true);
+            percentageFrame.setVisible(true);
+            percentageFrame.toFront();
             try {
                 flowTest = "TPWEBF4";
                 Transferencia_propia_f4.main(null);
@@ -522,6 +535,8 @@ public class Principal extends JFrame implements MensajesObserver {
         tpOnF1.addActionListener(e -> {
             tpOnF1.setBackground(colorFondo);
             tpOnF1.setSelected(true);
+            percentageFrame.setVisible(true);
+            percentageFrame.toFront();
             try {
                 flowTest = "TPOnlineF1";
                 Tpropias_belapp.main(null);
@@ -544,6 +559,8 @@ public class Principal extends JFrame implements MensajesObserver {
         tpFisF1.addActionListener(e -> {
             tpFisF1.setBackground(colorFondo);
             tpFisF1.setSelected(true);
+            percentageFrame.setVisible(true);
+            percentageFrame.toFront();
             try {
                 flowTest = "TPFisicoF1";
                 Tpropias_belappF.main(null);
@@ -566,7 +583,7 @@ public class Principal extends JFrame implements MensajesObserver {
 
     private JPanel btnReinicio() {
         JButton temp = new JButton("Reiniciar");
-        temp.setEnabled(false);
+        temp.setEnabled(true);
         temp.addActionListener(e -> iniciarBotones());
 
         Principal.panelReinicio.add(temp);
@@ -675,10 +692,14 @@ public class Principal extends JFrame implements MensajesObserver {
         List<JButton> botones = obtenerTodosLosJButtons(this);
         Color tmp = new JButton().getBackground();
         for (JButton boton : botones) {
-            boton.setSelected(false);
-            boton.setEnabled(false);
-            boton.setVisible(true);
-            boton.setBackground(tmp);
+            if (boton.getText() != "Reiniciar"){
+                boton.setSelected(false);
+                boton.setEnabled(false);
+                boton.setVisible(true);
+                boton.setBackground(tmp);
+            }
+
+
         }
 
         for (Component panelTipoPrueba : panelTipoPrueba.getComponents()) {
@@ -702,9 +723,10 @@ public class Principal extends JFrame implements MensajesObserver {
         } else if (flowTest == "TPOnlineF1") {
             // Falta implementacion en Controller
         } else {
-            nameTest = "No hay ejecución en proceso";
+            nameTest = "¡Test iniciado!";
             percentage = 0;
         }
+        flowTest = "";
 
         updateGUI();
         panelMensaje.setVisible(false);
@@ -750,6 +772,7 @@ public class Principal extends JFrame implements MensajesObserver {
             percentageFrame.add(labelPorcentaje);
             percentageFrame.setVisible(true);
             percentageFrame.setLocationRelativeTo(null);
+            percentageFrame.toBack();
 
             Timer timer = new Timer(1000, e -> updateGUI());
             timer.start();
@@ -774,9 +797,12 @@ public class Principal extends JFrame implements MensajesObserver {
             percentage = Transferencia_propia_f4.getExecutedTests();
         } else if (flowTest == "TPOnlineF1") {
             // Falta implementacion en Controller
+        } else {
+            nameTest = "¡Test iniciado!";
+            percentage = 0;
         }
 
-        labelNameTest.setText("Test ejecutandose: " + nameTest);
+        labelNameTest.setText(nameTest);
         DecimalFormat df = new DecimalFormat("0");
         labelPorcentaje.setText("Tests ejecutados: " + df.format(percentage));
     }
