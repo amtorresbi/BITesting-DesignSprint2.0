@@ -16,6 +16,7 @@ import controllers.transferencia.Tpropias_belapp;
 import helpers.Bi_helper;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -56,19 +57,22 @@ import javax.swing.Timer;
 public class Principal extends JFrame implements MensajesObserver {
     static Preferencias preferencias = Preferencias.getInstance();
     private String AMBIENTE_JSON = preferencias.obtenerAtributo("rutaJsonAmbiente");
-    private static float percentage = 0;
-    private static Map<Integer, String> ambientes = new HashMap<>();
+    private static String flowTest = ""; // Nombre del flujo de prueba actual
+    private static float percentage = 0; // Porcentaje de tests ejecutados
+    private static String nameTest; // Nombre del test actual
+    private static Map<Integer, String> ambientes = new HashMap<>(); // Mapa de ambientes
 
+    private static JFrame percentageFrame; // Ventana que muestra el porcentaje de tests ejecutados
     private static JPanel panelTipoPrueba = new JPanel(); // Panel que contiene Web o App
-    private static JPanel panelMedioPrueba = new JPanel();
-    private static JPanel panelAmbiente = new JPanel();
-    private static JPanel panelPruebas = new JPanel();
-    private static JPanel panelFlujos = new JPanel();
-    private static JPanel panelReinicio = new JPanel(new BorderLayout());
-    private static JPanel panelMensaje = new JPanel(new BorderLayout());
-    private static JLabel labelMensaje = new JLabel();
-    private static JPanel panelPorcentaje = new JPanel(new BorderLayout());
-    private static JLabel labelPorcentaje = new JLabel("Porcentaje de tests ejecutados: 0.00%");
+    private static JPanel panelMedioPrueba = new JPanel(); // Panel que contiene Chrome, Firefox, Edge, Safari, Android o iOS
+    private static JPanel panelAmbiente = new JPanel(); // Panel que contiene los ambientes de QA
+    private static JPanel panelPruebas = new JPanel(); // Panel que contiene los modulos de prueba
+    private static JPanel panelFlujos = new JPanel(); // Panel que contiene los flujos de prueba
+    private static JPanel panelReinicio = new JPanel(new BorderLayout()); // Panel que contiene el botón de reinicio
+    private static JPanel panelMensaje = new JPanel(new BorderLayout()); // Panel que contiene el mensaje de éxito o fallo
+    private static JLabel labelMensaje = new JLabel(); // Label que contiene el mensaje de éxito o fallo
+    private static JLabel labelNameTest = new JLabel("Test en ejecución: No hay ejecución en proceso"); // Label que contiene el nombre del test actual
+    private static JLabel labelPorcentaje = new JLabel("Tests ejecutados: 0"); // Label que contiene el porcentaje de tests ejecutados
 
     private final Color colorFondo = new Color(158, 218, 255);
 
@@ -92,11 +96,8 @@ public class Principal extends JFrame implements MensajesObserver {
         GridBagConstraints c = new GridBagConstraints();
 
         c.insets = new Insets(5, 2, 2, 2);
-        c.gridx = 4;
         c.gridy = 0;
-        add(vistaPorcentaje(), c);
         c.gridx = 0;
-        c.gridy = 1;
         add(columnaTipoPrueba(), c);
         c.gridx = 1;
         add(columnaMedioPrueba(), c);
@@ -106,12 +107,12 @@ public class Principal extends JFrame implements MensajesObserver {
         add(columnaTest(panelPruebas, panelFlujos), c);
         c.gridx = 4;
         add(columnaFlujos(), c);
-        c.gridy = 2;
+        c.gridy = 1;
         c.gridwidth = 5;
         c.gridx = 0;
         add(btnReinicio(), c);
 
-        c.gridy = 3;
+        c.gridy = 2;
         c.gridwidth = 5;
         c.gridx = 0;
         add(vistaMensaje(), c); // Vista de los mensajes (correcto o fallo)
@@ -119,6 +120,7 @@ public class Principal extends JFrame implements MensajesObserver {
         System.out.println("HashCode de la instancia en views: " + preferencias.hashCode());
 
         iniciarBotones();
+        showPercentage();
         getContentPane().setBackground(Color.decode("#111"));
         setVisible(true);
     }
@@ -312,12 +314,12 @@ public class Principal extends JFrame implements MensajesObserver {
         actual.setBackground(Color.decode("#505151"));
 
         // Identificación de Flujos Login
-        JButton test1 = new JButton("Login");
-        test1.setAlignmentX(Component.CENTER_ALIGNMENT);
-        test1.addActionListener(new AccionBtn(actual, siguiente));
-        test1.addActionListener(e -> {
-            test1.setBackground(colorFondo);
-            test1.setSelected(true);
+        JButton loginTest = new JButton("Login");
+        loginTest.setAlignmentX(Component.CENTER_ALIGNMENT);
+        loginTest.addActionListener(new AccionBtn(actual, siguiente));
+        loginTest.addActionListener(e -> {
+            loginTest.setBackground(colorFondo);
+            loginTest.setSelected(true);
             List<JButton> botones = obtenerTodosLosJButtons(panelFlujos); // Obtener todos los botones del panel de flujos
             String tipoPrueba = preferencias.obtenerAtributo("typeTest");            
             if (tipoPrueba == "web") {
@@ -341,12 +343,12 @@ public class Principal extends JFrame implements MensajesObserver {
         });
 
         // Identificación de Flujos Transferencia Propia
-        JButton test2 = new JButton("Transferencias Propias");
-        test2.setAlignmentX(Component.CENTER_ALIGNMENT);
-        test2.addActionListener(new AccionBtn(actual, siguiente));
-        test2.addActionListener(e -> {
-            test2.setBackground(colorFondo);
-            test2.setSelected(true);
+        JButton tpTest = new JButton("Transferencias Propias");
+        tpTest.setAlignmentX(Component.CENTER_ALIGNMENT);
+        tpTest.addActionListener(new AccionBtn(actual, siguiente));
+        tpTest.addActionListener(e -> {
+            tpTest.setBackground(colorFondo);
+            tpTest.setSelected(true);
             List<JButton> botones = obtenerTodosLosJButtons(panelFlujos); // Obtener todos los botones del panel de flujos
             String tipoPrueba = preferencias.obtenerAtributo("typeTest");
             if (tipoPrueba == "web") {
@@ -369,8 +371,8 @@ public class Principal extends JFrame implements MensajesObserver {
         });
 
         secundario.add(titulo, BorderLayout.NORTH);
-        actual.add(test1);
-        actual.add(test2);
+        actual.add(loginTest);
+        actual.add(tpTest);
         secundario.add(actual, BorderLayout.CENTER);
 
         return secundario;
@@ -391,105 +393,139 @@ public class Principal extends JFrame implements MensajesObserver {
 
         // Configuración de los botones de los flujos de prueba
         // Login - WEB - F1
-        JButton test = new JButton("Login - WEB - F1");
-        test.setAlignmentX(Component.CENTER_ALIGNMENT);
-        test.addActionListener(new AccionBtn(Principal.panelFlujos, Principal.panelReinicio));
-        test.addActionListener(e -> {
-            test.setBackground(colorFondo);
-            test.setSelected(true);
+        JButton loginWebF1 = new JButton("Login - WEB - F1", iconoRedimensionado(Objects.requireNonNull(Bi_helper.rutaImg("webTest.png")), 25, 25));
+        loginWebF1.setAlignmentX(Component.CENTER_ALIGNMENT);
+        loginWebF1.addActionListener(new AccionBtn(Principal.panelFlujos, Principal.panelReinicio));
+        loginWebF1.addActionListener(e -> {
+            loginWebF1.setBackground(colorFondo);
+            loginWebF1.setSelected(true);
             try {
+                flowTest = "LoginWEBF1";
                 Login.main(null);
-                toFront();
+                percentageFrame.setVisible(true);
+                percentageFrame.toFront();
             } finally {
                 if (Mensajes.getMensaje().isEmpty()) {
                     actualizar(new ArrayList<>());
                 }
             }
         });
-        Principal.panelFlujos.add(test);
+        Principal.panelFlujos.add(loginWebF1);
+
+        // Login - Online - F1
+        JButton loginOnF1 = new JButton("Login - Online - F1", iconoRedimensionado(Objects.requireNonNull(Bi_helper.rutaImg("onlineTest.png")), 25, 25));
+        loginOnF1.setAlignmentX(Component.CENTER_ALIGNMENT);
+        loginOnF1.addActionListener(new AccionBtn(Principal.panelFlujos, Principal.panelReinicio));
+        loginOnF1.addActionListener(e -> {
+            loginOnF1.setBackground(colorFondo);
+            loginOnF1.setSelected(true);
+            try {
+                flowTest = "LoginOnlineF1";
+                Tpropias_belapp.main(null);
+                percentageFrame.setVisible(true);
+                percentageFrame.toFront();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            } finally {
+                if (Mensajes.getMensaje().isEmpty()) {
+                    actualizar(new ArrayList<>());
+                }
+            }
+        });
+        Principal.panelFlujos.add(loginOnF1);
 
         // TP - WEB - F1
-        JButton tpF1 = new JButton("TP - WEB - F1");
-        tpF1.setAlignmentX(Component.CENTER_ALIGNMENT);
-        tpF1.addActionListener(new AccionBtn(Principal.panelFlujos, Principal.panelReinicio));
-        tpF1.addActionListener(e -> {
-            tpF1.setBackground(colorFondo);
-            tpF1.setSelected(true);
+        JButton tpWebF1 = new JButton("TP - WEB - F1", iconoRedimensionado(Objects.requireNonNull(Bi_helper.rutaImg("webTest.png")), 25, 25));
+        tpWebF1.setAlignmentX(Component.CENTER_ALIGNMENT);
+        tpWebF1.addActionListener(new AccionBtn(Principal.panelFlujos, Principal.panelReinicio));
+        tpWebF1.addActionListener(e -> {
+            tpWebF1.setBackground(colorFondo);
+            tpWebF1.setSelected(true);
             try {
+                flowTest = "TPWEBF1";
                 Transferencia_propia.main(null);
-                toFront();
+                percentageFrame.setVisible(true);
+                percentageFrame.toFront();
             } finally {
                 if (Mensajes.getMensaje().isEmpty()) {
                     actualizar(new ArrayList<>());
                 }
             }
         });
-        Principal.panelFlujos.add(tpF1);
+        Principal.panelFlujos.add(tpWebF1);
 
         // TP - WEB - F2
-        JButton tpF2 = new JButton("TP - WEB - F2");
-        tpF2.setAlignmentX(Component.CENTER_ALIGNMENT);
-        tpF2.addActionListener(new AccionBtn(Principal.panelFlujos, Principal.panelReinicio));
-        tpF2.addActionListener(e -> {
-            tpF2.setBackground(colorFondo);
-            tpF2.setSelected(true);
+        JButton tpWebF2 = new JButton("TP - WEB - F2", iconoRedimensionado(Objects.requireNonNull(Bi_helper.rutaImg("webTest.png")), 25, 25));
+        tpWebF2.setAlignmentX(Component.CENTER_ALIGNMENT);
+        tpWebF2.addActionListener(new AccionBtn(Principal.panelFlujos, Principal.panelReinicio));
+        tpWebF2.addActionListener(e -> {
+            tpWebF2.setBackground(colorFondo);
+            tpWebF2.setSelected(true);
             try {
+                flowTest = "TPWEBF2";
                 Transferencia_propia_f2.main(null);
-                toFront();
+                percentageFrame.setVisible(true);
+                percentageFrame.toFront();
             } finally {
                 if (Mensajes.getMensaje().isEmpty()) {
                     actualizar(new ArrayList<>());
                 }
             }
         });
-        Principal.panelFlujos.add(tpF2);
+        Principal.panelFlujos.add(tpWebF2);
 
         // TP - WEB - F3
-        JButton tpF3 = new JButton("TP - WEB - F3");
-        tpF3.setAlignmentX(Component.CENTER_ALIGNMENT);
-        tpF3.addActionListener(new AccionBtn(Principal.panelFlujos, Principal.panelReinicio));
-        tpF3.addActionListener(e -> {
-            tpF3.setBackground(colorFondo);
-            tpF3.setSelected(true);
+        JButton tpWebF3 = new JButton("TP - WEB - F3", iconoRedimensionado(Objects.requireNonNull(Bi_helper.rutaImg("webTest.png")), 25, 25));
+        tpWebF3.setAlignmentX(Component.CENTER_ALIGNMENT);
+        tpWebF3.addActionListener(new AccionBtn(Principal.panelFlujos, Principal.panelReinicio));
+        tpWebF3.addActionListener(e -> {
+            tpWebF3.setBackground(colorFondo);
+            tpWebF3.setSelected(true);
             try {
+                flowTest = "TPWEBF3";
                 Transferencia_propia_f3.main(null);
-                toFront();
+                percentageFrame.setVisible(true);
+                percentageFrame.toFront();
             } finally {
                 if (Mensajes.getMensaje().isEmpty()) {
                     actualizar(new ArrayList<>());
                 }
             }
         });
-        Principal.panelFlujos.add(tpF3);
+        Principal.panelFlujos.add(tpWebF3);
 
         // TP - WEB - F4
-        JButton tpF4 = new JButton("TP - WEB - F4");
-        tpF4.setAlignmentX(Component.CENTER_ALIGNMENT);
-        tpF4.addActionListener(new AccionBtn(Principal.panelFlujos, Principal.panelReinicio));
-        tpF4.addActionListener(e -> {
-            tpF4.setBackground(colorFondo);
-            tpF4.setSelected(true);
+        JButton tpWebF4 = new JButton("TP - WEB - F4", iconoRedimensionado(Objects.requireNonNull(Bi_helper.rutaImg("webTest.png")), 25, 25));
+        tpWebF4.setAlignmentX(Component.CENTER_ALIGNMENT);
+        tpWebF4.addActionListener(new AccionBtn(Principal.panelFlujos, Principal.panelReinicio));
+        tpWebF4.addActionListener(e -> {
+            tpWebF4.setBackground(colorFondo);
+            tpWebF4.setSelected(true);
             try {
+                flowTest = "TPWEBF4";
                 Transferencia_propia_f4.main(null);
-                toFront();
+                percentageFrame.setVisible(true);
+                percentageFrame.toFront();
             } finally {
                 if (Mensajes.getMensaje().isEmpty()) {
                     actualizar(new ArrayList<>());
                 }
             }
         });
-        Principal.panelFlujos.add(tpF4);
+        Principal.panelFlujos.add(tpWebF4);
 
-        // TP - Online - F4
-        JButton tpOnF1 = new JButton("TP - Online - F1");
+        // TP - Online - F1
+        JButton tpOnF1 = new JButton("TP - Online - F1", iconoRedimensionado(Objects.requireNonNull(Bi_helper.rutaImg("onlineTest.png")), 25, 25));
         tpOnF1.setAlignmentX(Component.CENTER_ALIGNMENT);
         tpOnF1.addActionListener(new AccionBtn(Principal.panelFlujos, Principal.panelReinicio));
         tpOnF1.addActionListener(e -> {
             tpOnF1.setBackground(colorFondo);
             tpOnF1.setSelected(true);
             try {
+                flowTest = "TPOnlineF1";
                 Tpropias_belapp.main(null);
-                toFront();
+                percentageFrame.setVisible(true);
+                percentageFrame.toFront();
             } catch (IOException e1) {
                 e1.printStackTrace();
             } finally {
@@ -525,17 +561,6 @@ public class Principal extends JFrame implements MensajesObserver {
 
         Principal.panelMensaje.add(labelMensaje);
         return Principal.panelMensaje;
-    }
-
-    private JPanel vistaPorcentaje() {
-        Principal.panelPorcentaje.setLayout(new BoxLayout(panelPorcentaje, BoxLayout.Y_AXIS));
-        Principal.panelPorcentaje.setBorder(new LineBorder(Color.black));
-
-        labelPorcentaje.setHorizontalAlignment(JLabel.RIGHT);
-        labelPorcentaje.setText("Porcentaje de tests ejecutados: 0.00%");
-
-        Principal.panelPorcentaje.add(labelPorcentaje);
-        return Principal.panelPorcentaje;
     }
 
     private static class AccionBtn implements ActionListener {
@@ -641,7 +666,24 @@ public class Principal extends JFrame implements MensajesObserver {
         }
 
         Mensajes.limpiarMensaje();
-        // Login.resetValues(); // Modificar para el resto de test suites
+        // Reinicio de valores de tests
+        if (flowTest == "LoginWEBF1"){
+            Login.resetValues();
+        } else if (flowTest == "TPWEBF1") {
+            Transferencia_propia.resetValues();
+        } else if (flowTest == "TPWEBF2") {
+            Transferencia_propia_f2.resetValues();
+        } else if (flowTest == "TPWEBF3") {
+            Transferencia_propia_f3.resetValues();
+        } else if (flowTest == "TPWEBF4") {
+            Transferencia_propia_f4.resetValues();
+        } else if (flowTest == "TPOnlineF1") {
+            // Falta implementacion en Controller
+        } else {
+            nameTest = "No hay ejecución en proceso";
+            percentage = 0;
+        }
+
         updateGUI();
         panelMensaje.setVisible(false);
     }
@@ -668,18 +710,59 @@ public class Principal extends JFrame implements MensajesObserver {
         Preferencias.getInstance().generarPlantillas();
     }
 
+    private static void showPercentage() {
+        SwingUtilities.invokeLater(() -> {
+            percentageFrame = new JFrame();
+            percentageFrame.setTitle("Porcentaje de tests ejecutados");
+            percentageFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+            percentageFrame.setLayout(new BorderLayout());
+            percentageFrame.setLayout(new BoxLayout(percentageFrame.getContentPane(), BoxLayout.Y_AXIS));
+            percentageFrame.setSize(300, 100);
+            percentageFrame.setLocationRelativeTo(null);
+            labelPorcentaje.setForeground(Color.WHITE);
+            labelNameTest.setForeground(Color.WHITE);
+            percentageFrame.setResizable(false);
+            percentageFrame.add(Box.createVerticalStrut(5));
+            percentageFrame.add(labelNameTest, BorderLayout.CENTER);
+            percentageFrame.add(Box.createVerticalStrut(10));
+            percentageFrame.add(labelPorcentaje);
+            percentageFrame.setVisible(true);
+            percentageFrame.setLocationRelativeTo(null);
+
+            Timer timer = new Timer(1000, e -> updateGUI());
+            timer.start();
+        });
+    }
+
     private static void updateGUI() {
-        // percentage = Login.getPercentage(); // Modificar para el resto de test suites
-        DecimalFormat df = new DecimalFormat("0.00");
-        labelPorcentaje.setText("Porcentaje de tests ejecutados: " + df.format(percentage) + "%");
+        if (flowTest == "LoginWEBF1"){
+            nameTest = Login.getNameTest();
+            percentage = Login.getExecutedTests();
+        } else if (flowTest == "TPWEBF1") {
+            nameTest = Transferencia_propia.getNameTest();
+            percentage = Transferencia_propia.getExecutedTests();
+        } else if (flowTest == "TPWEBF2") {
+            nameTest = Transferencia_propia_f2.getNameTest();
+            percentage = Transferencia_propia_f2.getExecutedTests();
+        } else if (flowTest == "TPWEBF3") {
+            nameTest = Transferencia_propia_f3.getNameTest();
+            percentage = Transferencia_propia_f3.getExecutedTests();
+        } else if (flowTest == "TPWEBF4") {
+            nameTest = Transferencia_propia_f4.getNameTest();
+            percentage = Transferencia_propia_f4.getExecutedTests();
+        } else if (flowTest == "TPOnlineF1") {
+            // Falta implementacion en Controller
+        }
+
+        labelNameTest.setText("Test ejecutandose: " + nameTest);
+        DecimalFormat df = new DecimalFormat("0");
+        labelPorcentaje.setText("Tests ejecutados: " + df.format(percentage));
     }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             Principal ventana = new Principal();
             Mensajes.addObserver(ventana);
-            Timer timer = new Timer(1000, e -> updateGUI());
-            timer.start();
         });
     }
 }

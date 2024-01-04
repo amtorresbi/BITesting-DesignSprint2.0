@@ -1,5 +1,7 @@
 package controllers;
 
+import org.testng.ITestListener;
+import org.testng.ITestResult;
 import org.testng.TestNG;
 import org.testng.xml.XmlClass;
 import org.testng.xml.XmlSuite;
@@ -8,7 +10,42 @@ import org.testng.xml.XmlTest;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Login {
+public class Login implements ITestListener {
+    private static String nameTest = "";
+    private static int executedTests = 0;
+
+    @Override
+    public void onTestStart(ITestResult result) {
+        // Este método se ejecuta al inicio de cada test
+        nameTest = result.getName();
+        System.out.println("Iniciando test: " + nameTest);
+    }
+
+    @Override
+    public void onTestSuccess(ITestResult result) {
+        // Este método se ejecuta al finalizar exitosamente cada test
+        executedTests++;
+    }
+
+    @Override
+    public void onTestFailure(ITestResult result) {
+        // Este método se ejecuta al finalizar cada test con fallo
+        executedTests++;
+    }
+
+    public static float getExecutedTests() {
+        return executedTests;
+    }
+
+    public static String getNameTest() {
+        return nameTest;
+    }
+
+    public static void resetValues() {
+        // Método para reiniciar los valores de las variables
+        executedTests = 0;
+        nameTest = "No hay ejecución en proceso";
+    }
 
     public static void main(String[] args) {
         TestNG testng = new TestNG();
@@ -23,6 +60,10 @@ public class Login {
         test.setXmlClasses(classes);
 
         testng.setXmlSuites(List.of(suite));
+        
+        // Agregar el listener
+        testng.addListener(new Login());
+
         testng.run();
     }
 }
