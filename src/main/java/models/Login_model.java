@@ -63,7 +63,7 @@ public class Login_model {
     }
 
     public void writeCodigo(ExtentTest test) throws IOException {
-        String codigo = readFile.getCellValue(RUTA_EXCEL, "Login", 1, 1);
+        String codigo = readFile.getCellValue(RUTA_EXCEL, "Login", 2, 1);
         try {
             loginPage.ingresarCodigo(codigo);
             Reports.logPass(test, "Se ingreso correctamente el codigo: " + codigo);
@@ -73,7 +73,7 @@ public class Login_model {
     }
 
     public void writeUsuario(ExtentTest test) throws IOException {
-        String usuario = readFile.getCellValue(RUTA_EXCEL, "Login", 2, 1);
+        String usuario = readFile.getCellValue(RUTA_EXCEL, "Login", 3, 1);
         try {
             loginPage.ingresarUsuario(usuario);
             Reports.logPass(test, "Ingreso correcto del usuario: " + usuario);
@@ -84,7 +84,7 @@ public class Login_model {
 
     public void writeContrasenia(ExtentTest test) {
         try {
-            loginPage.ingresarContrasenia(readFile.getCellValue(RUTA_EXCEL, "Login", 3, 1));
+            loginPage.ingresarContrasenia(readFile.getCellValue(RUTA_EXCEL, "Login", 4, 1));
             Reports.logPass(test, "Ingreso correcto de la Contraseña: " + "Prueba123..");
         } catch (Exception e) {
             Reports.logFail(test, "Fallo al ingresar la Contraseña: " + "Prueba123..");

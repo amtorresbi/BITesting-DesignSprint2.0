@@ -16,7 +16,7 @@ public class Login_test {
         System.out.println(loginModel);
 
         try {
-            Reports.assign(test, "EB", "TEST", Preferencias.getInstance().obtenerAtributo("navegadorNombre"));
+            Reports.assign(test, "Equipo Demo QA", "Login", Preferencias.getInstance().obtenerAtributo("navegadorNombre"));
             loginModel.procesar(test);
         } catch (Exception e) {
             e.printStackTrace();

@@ -6,8 +6,6 @@ import java.net.MalformedURLException;
 
 import org.testng.annotations.Test;
 
-import com.aventstack.extentreports.ExtentTest;
-
 import libraries.Reports;
 
 public class Tpropias_belapp_test {

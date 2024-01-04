@@ -12,6 +12,7 @@ import controllers.transferencia.Transferencia_propia_f2;
 import controllers.transferencia.Transferencia_propia_f3;
 import controllers.transferencia.Transferencia_propia_f4;
 import controllers.transferencia.Tpropias_belapp;
+import controllers.transferencia.Tpropias_belappF;
 // IMPORT HELPERS
 import helpers.Bi_helper;
 
@@ -535,6 +536,26 @@ public class Principal extends JFrame implements MensajesObserver {
             }
         });
         Principal.panelFlujos.add(tpOnF1);
+
+        // TP - Fisico - F1
+        JButton tpFisF1 = new JButton("TP - Fisico - F1", iconoRedimensionado(Objects.requireNonNull(Bi_helper.rutaImg("physicTest.png")), 25, 25));
+        tpFisF1.setAlignmentX(Component.CENTER_ALIGNMENT);
+        tpFisF1.addActionListener(new AccionBtn(Principal.panelFlujos, Principal.panelReinicio));
+        tpFisF1.addActionListener(e -> {
+            tpFisF1.setBackground(colorFondo);
+            tpFisF1.setSelected(true);
+            try {
+                flowTest = "TPFisicoF1";
+                Tpropias_belappF.main(null);
+                percentageFrame.setVisible(true);
+                percentageFrame.toFront();
+            } finally {
+                if (Mensajes.getMensaje().isEmpty()) {
+                    actualizar(new ArrayList<>());
+                }
+            }
+        });
+        Principal.panelFlujos.add(tpFisF1);
 
         secundario.add(titulo, BorderLayout.NORTH);
         secundario.add(Principal.panelFlujos, BorderLayout.CENTER);

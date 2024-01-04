@@ -121,6 +121,7 @@ public class Bi_helper {
                 formato = new SimpleDateFormat("dd-MM-yy HH-mm-ss");
                 break;
             default:
+                formato = new SimpleDateFormat("dd-MM-yy"); // Initialize with a default value
                 break;
         }
 

@@ -29,7 +29,7 @@ public class Dtransferencia_propia extends ReadExcelFile {
     public Object[][] getDatos() throws IOException {
         List<Operacion> transacciones = new ArrayList<>();
 
-        for (int i = 1; i <= countRows(RUTA_EXCEL, "TransferenciasPropias"); i++) {
+        for (int i = 2; i <= countRows(RUTA_EXCEL, "TransferenciasPropias"); i++) {
 
             transacciones.add(new Operacion(getCellValue(RUTA_EXCEL, "TransferenciasPropias", i, 0),
                     getCellValue(RUTA_EXCEL, "TransferenciasPropias", i, 1),

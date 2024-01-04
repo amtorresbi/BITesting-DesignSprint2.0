@@ -34,6 +34,7 @@ public class Preferencias {
         atributos.put("rutaJsonAmbiente", home + "\\Documents\\Automatizacion BEL Web\\Resourses\\ambientes.json");
         atributos.put("rutaJsonConfig", home + "\\Documents\\Automatizacion BEL Web\\Resourses\\Config.json");
         atributos.put("rutaReporte", home + "\\Documents\\Automatizacion BEL Web\\Reporte " + fechaActual + ".html");
+        atributos.put("rutaResources", home + "\\Documents\\Automatizacion BEL Web\\Resourses");
         atributos.put("nivelTest", "1");
         atributos.put("navegadorTipo", "1");
         atributos.put("navegadorNombre", "Chrome");
