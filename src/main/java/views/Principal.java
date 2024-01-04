@@ -656,6 +656,7 @@ public class Principal extends JFrame implements MensajesObserver {
         for (JButton boton : botones) {
             boton.setSelected(false);
             boton.setEnabled(false);
+            boton.setVisible(true);
             boton.setBackground(tmp);
         }
 
