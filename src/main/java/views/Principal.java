@@ -28,6 +28,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.Border;
@@ -43,9 +44,9 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -398,20 +399,7 @@ public class Principal extends JFrame implements MensajesObserver {
         loginWebF1.setAlignmentX(Component.CENTER_ALIGNMENT);
         loginWebF1.addActionListener(new AccionBtn(Principal.panelFlujos, Principal.panelReinicio));
         loginWebF1.addActionListener(e -> {
-            loginWebF1.setBackground(colorFondo);
-            loginWebF1.setSelected(true);
-            percentageFrame.setVisible(true);
-            percentageFrame.toFront();
-            try {
-                flowTest = "LoginWEBF1";
-                Login.main(null);
-                percentageFrame.setVisible(true);
-                percentageFrame.toFront();
-            } finally {
-                if (Mensajes.getMensaje().isEmpty()) {
-                    actualizar(new ArrayList<>());
-                }
-            }
+            setBotonEjecucion(loginWebF1, "LoginWEBF1");
         });
         Principal.panelFlujos.add(loginWebF1);
 
@@ -420,22 +408,7 @@ public class Principal extends JFrame implements MensajesObserver {
         loginOnF1.setAlignmentX(Component.CENTER_ALIGNMENT);
         loginOnF1.addActionListener(new AccionBtn(Principal.panelFlujos, Principal.panelReinicio));
         loginOnF1.addActionListener(e -> {
-            loginOnF1.setBackground(colorFondo);
-            loginOnF1.setSelected(true);
-            percentageFrame.setVisible(true);
-            percentageFrame.toFront();
-            try {
-                flowTest = "LoginOnlineF1";
-                Tpropias_belapp.main(null);
-                percentageFrame.setVisible(true);
-                percentageFrame.toFront();
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            } finally {
-                if (Mensajes.getMensaje().isEmpty()) {
-                    actualizar(new ArrayList<>());
-                }
-            }
+            setBotonEjecucion(loginOnF1, "LoginWEBF1");
         });
         Principal.panelFlujos.add(loginOnF1);
 
@@ -444,21 +417,7 @@ public class Principal extends JFrame implements MensajesObserver {
         tpWebF1.setAlignmentX(Component.CENTER_ALIGNMENT);
         tpWebF1.addActionListener(new AccionBtn(Principal.panelFlujos, Principal.panelReinicio));
         tpWebF1.addActionListener(e -> {
-            tpWebF1.setBackground(colorFondo);
-            tpWebF1.setSelected(true);
-            
-            percentageFrame.setVisible(true);
-            percentageFrame.toFront();
-            try {
-                flowTest = "TPWEBF1";
-                Transferencia_propia.main(null);
-                percentageFrame.setVisible(true);
-                percentageFrame.toFront();
-            } finally {
-                if (Mensajes.getMensaje().isEmpty()) {
-                    actualizar(new ArrayList<>());
-                }
-            }
+            setBotonEjecucion(tpWebF1, "TPWEBF1");
         });
         Principal.panelFlujos.add(tpWebF1);
 
@@ -467,20 +426,7 @@ public class Principal extends JFrame implements MensajesObserver {
         tpWebF2.setAlignmentX(Component.CENTER_ALIGNMENT);
         tpWebF2.addActionListener(new AccionBtn(Principal.panelFlujos, Principal.panelReinicio));
         tpWebF2.addActionListener(e -> {
-            tpWebF2.setBackground(colorFondo);
-            tpWebF2.setSelected(true);
-            percentageFrame.setVisible(true);
-            percentageFrame.toFront();
-            try {
-                flowTest = "TPWEBF2";
-                Transferencia_propia_f2.main(null);
-                percentageFrame.setVisible(true);
-                percentageFrame.toFront();
-            } finally {
-                if (Mensajes.getMensaje().isEmpty()) {
-                    actualizar(new ArrayList<>());
-                }
-            }
+            setBotonEjecucion(tpWebF2, "TPWEBF2");
         });
         Principal.panelFlujos.add(tpWebF2);
 
@@ -489,20 +435,7 @@ public class Principal extends JFrame implements MensajesObserver {
         tpWebF3.setAlignmentX(Component.CENTER_ALIGNMENT);
         tpWebF3.addActionListener(new AccionBtn(Principal.panelFlujos, Principal.panelReinicio));
         tpWebF3.addActionListener(e -> {
-            tpWebF3.setBackground(colorFondo);
-            tpWebF3.setSelected(true);
-            percentageFrame.setVisible(true);
-            percentageFrame.toFront();
-            try {
-                flowTest = "TPWEBF3";
-                Transferencia_propia_f3.main(null);
-                percentageFrame.setVisible(true);
-                percentageFrame.toFront();
-            } finally {
-                if (Mensajes.getMensaje().isEmpty()) {
-                    actualizar(new ArrayList<>());
-                }
-            }
+            setBotonEjecucion(tpWebF3, "TPWEBF3");
         });
         Principal.panelFlujos.add(tpWebF3);
 
@@ -511,20 +444,7 @@ public class Principal extends JFrame implements MensajesObserver {
         tpWebF4.setAlignmentX(Component.CENTER_ALIGNMENT);
         tpWebF4.addActionListener(new AccionBtn(Principal.panelFlujos, Principal.panelReinicio));
         tpWebF4.addActionListener(e -> {
-            tpWebF4.setBackground(colorFondo);
-            tpWebF4.setSelected(true);
-            percentageFrame.setVisible(true);
-            percentageFrame.toFront();
-            try {
-                flowTest = "TPWEBF4";
-                Transferencia_propia_f4.main(null);
-                percentageFrame.setVisible(true);
-                percentageFrame.toFront();
-            } finally {
-                if (Mensajes.getMensaje().isEmpty()) {
-                    actualizar(new ArrayList<>());
-                }
-            }
+            setBotonEjecucion(tpWebF4, "TPWEBF4");
         });
         Principal.panelFlujos.add(tpWebF4);
 
@@ -533,22 +453,7 @@ public class Principal extends JFrame implements MensajesObserver {
         tpOnF1.setAlignmentX(Component.CENTER_ALIGNMENT);
         tpOnF1.addActionListener(new AccionBtn(Principal.panelFlujos, Principal.panelReinicio));
         tpOnF1.addActionListener(e -> {
-            tpOnF1.setBackground(colorFondo);
-            tpOnF1.setSelected(true);
-            percentageFrame.setVisible(true);
-            percentageFrame.toFront();
-            try {
-                flowTest = "TPOnlineF1";
-                Tpropias_belapp.main(null);
-                percentageFrame.setVisible(true);
-                percentageFrame.toFront();
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            } finally {
-                if (Mensajes.getMensaje().isEmpty()) {
-                    actualizar(new ArrayList<>());
-                }
-            }
+            setBotonEjecucion(tpOnF1, "TPOnlineF1");
         });
         Principal.panelFlujos.add(tpOnF1);
 
@@ -557,20 +462,7 @@ public class Principal extends JFrame implements MensajesObserver {
         tpFisF1.setAlignmentX(Component.CENTER_ALIGNMENT);
         tpFisF1.addActionListener(new AccionBtn(Principal.panelFlujos, Principal.panelReinicio));
         tpFisF1.addActionListener(e -> {
-            tpFisF1.setBackground(colorFondo);
-            tpFisF1.setSelected(true);
-            percentageFrame.setVisible(true);
-            percentageFrame.toFront();
-            try {
-                flowTest = "TPFisicoF1";
-                Tpropias_belappF.main(null);
-                percentageFrame.setVisible(true);
-                percentageFrame.toFront();
-            } finally {
-                if (Mensajes.getMensaje().isEmpty()) {
-                    actualizar(new ArrayList<>());
-                }
-            }
+            setBotonEjecucion(tpFisF1, "TPFisicoF1");
         });
         Principal.panelFlujos.add(tpFisF1);
 
@@ -599,6 +491,70 @@ public class Principal extends JFrame implements MensajesObserver {
 
         Principal.panelMensaje.add(labelMensaje);
         return Principal.panelMensaje;
+    }
+
+    private void setMensajeInicioEjecucion() {
+        labelMensaje.setIcon(iconoRedimensionado(Objects.requireNonNull(Bi_helper.rutaImg("Loading.png")), 36, 36));
+        labelMensaje.setText("Ejecución iniciada");
+        panelMensaje.setBackground(Color.decode("#097703"));
+        labelMensaje.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+        labelMensaje.setAlignmentY(JLabel.CENTER_ALIGNMENT);
+        labelMensaje.setFont(new Font("Serif", Font.BOLD, 12));
+        labelMensaje.setForeground(Color.white);
+        panelMensaje.setVisible(true);
+    }
+    private void setBotonEjecucion(JButton btn, String flowTest){
+        SwingUtilities.invokeLater(() -> {
+            btn.setBackground(colorFondo);
+            btn.setSelected(true);
+            setMensajeInicioEjecucion();
+        });
+        percentageFrame.setVisible(true);
+        percentageFrame.toFront();
+        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+             @Override
+            protected Void doInBackground() throws Exception {
+                Principal.flowTest = flowTest;
+                switch (flowTest) {
+                    case "TPWEBF1":
+                        Transferencia_propia.main(null);
+                        break;
+                    case "TPWEBF2":
+                        Transferencia_propia_f2.main(null);
+                        break;
+                    case "TPWEBF3":
+                        Transferencia_propia_f3.main(null);
+                        break;
+                    case "TPWEBF4":
+                        Transferencia_propia_f4.main(null);
+                        break;
+                    case "TPOnlineF1":
+                        Tpropias_belapp.main(null);
+                        break;
+                    case "TPFisicoF1":
+                        Tpropias_belappF.main(null);
+                        break;
+                    case "LoginWEBF1":
+                        Login.main(null);
+                        break;
+                    default:
+                        break;
+                }
+                return null;
+            }
+
+            @Override
+            protected void done() {
+                percentageFrame.toFront();
+                if (Mensajes.getMensaje().isEmpty()) {
+                    actualizar(new ArrayList<>());
+                }
+                JLabel Final = new JLabel("Ejecución finalizada");
+                Final.setForeground(Color.WHITE);
+                percentageFrame.add(Final);
+            }
+        };
+        worker.execute();
     }
 
     private static class AccionBtn implements ActionListener {
@@ -723,7 +679,7 @@ public class Principal extends JFrame implements MensajesObserver {
         } else if (flowTest == "TPOnlineF1") {
             // Falta implementacion en Controller
         } else {
-            nameTest = "¡Test iniciado!";
+            nameTest = "No hay ejecución en proceso";
             percentage = 0;
         }
         flowTest = "";
@@ -761,8 +717,16 @@ public class Principal extends JFrame implements MensajesObserver {
             percentageFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
             percentageFrame.setLayout(new BorderLayout());
             percentageFrame.setLayout(new BoxLayout(percentageFrame.getContentPane(), BoxLayout.Y_AXIS));
-            percentageFrame.setSize(300, 100);
-            percentageFrame.setLocationRelativeTo(null);
+            percentageFrame.setSize(300, 130);
+            // Obtiene el tamaño de la pantalla
+            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+
+            // Calcula las coordenadas para la esquina superior derecha
+            int x = screenSize.width - percentageFrame.getWidth();
+            int y = 0;
+
+            // Establece la ubicación del JFrame en la esquina superior derecha
+            percentageFrame.setLocation(x, y);
             labelPorcentaje.setForeground(Color.WHITE);
             labelNameTest.setForeground(Color.WHITE);
             percentageFrame.setResizable(false);
@@ -770,9 +734,9 @@ public class Principal extends JFrame implements MensajesObserver {
             percentageFrame.add(labelNameTest, BorderLayout.CENTER);
             percentageFrame.add(Box.createVerticalStrut(10));
             percentageFrame.add(labelPorcentaje);
+            percentageFrame.add(Box.createVerticalStrut(10));
             percentageFrame.setVisible(true);
-            percentageFrame.setLocationRelativeTo(null);
-            percentageFrame.toBack();
+            percentageFrame.setAlwaysOnTop(true);
 
             Timer timer = new Timer(1000, e -> updateGUI());
             timer.start();
@@ -798,7 +762,7 @@ public class Principal extends JFrame implements MensajesObserver {
         } else if (flowTest == "TPOnlineF1") {
             // Falta implementacion en Controller
         } else {
-            nameTest = "¡Test iniciado!";
+            nameTest = "No hay ejecución en proceso";
             percentage = 0;
         }
 

@@ -44,7 +44,7 @@ public class Transferencia_propia_f2 implements ITestListener {
     public static void resetValues() {
         // Método para reiniciar los valores de las variables
         executedTests = 0;
-        nameTest = "¡Test iniciado!";
+        nameTest = "No hay ejecución en proceso";
     }
     public static void main(String[] args) {
         TestNG testng = new TestNG();
